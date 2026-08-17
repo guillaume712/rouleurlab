@@ -1,0 +1,78 @@
+---
+// Layout de base : squelette HTML commun à toutes les pages.
+// Chaque page doit fournir un title et une description uniques (Phase 6 §9 — SEO technique).
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={canonicalURL} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+  </head>
+  <body>
+    <header class="site-header">
+      <nav>
+        <a href="/" class="logo">VéloJauge</a>
+      </nav>
+    </header>
+    <main>
+      <slot />
+    </main>
+    <footer class="site-footer">
+      <p>VéloJauge — outils gratuits pour cyclistes.</p>
+    </footer>
+    <style is:global>
+      :root {
+        --color-bg: #0f1216;
+        --color-text: #e8ebee;
+        --color-accent: #ffb020;
+        --color-muted: #9aa4af;
+        font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--color-bg);
+        color: var(--color-text);
+        line-height: 1.5;
+      }
+      main {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 1.5rem;
+      }
+      .site-header {
+        border-bottom: 1px solid #24282e;
+        padding: 1rem 1.5rem;
+      }
+      .logo {
+        color: var(--color-accent);
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.25rem;
+      }
+      .site-footer {
+        text-align: center;
+        color: var(--color-muted);
+        padding: 2rem;
+        font-size: 0.875rem;
+      }
+      a {
+        color: var(--color-accent);
+      }
+    </style>
+  </body>
+</html>
