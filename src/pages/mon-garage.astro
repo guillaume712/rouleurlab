@@ -1,0 +1,17 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import FormulaireGarage from '@/components/profil/FormulaireGarage';
+---
+
+<BaseLayout
+  title="Mon garage — VéloJauge"
+  description="Enregistrez les caractéristiques de vos vélos (cassette, plateaux, pneus, jantes) pour préremplir les outils de compatibilité mécanique. Aucun compte requis."
+>
+  <h1>Mon garage</h1>
+  <p>
+    Enregistrez un ou plusieurs vélos pour préremplir les outils de compatibilité mécanique
+    (longueur de chaîne, pneu/jante, cassette/dérailleur). Ces informations restent stockées
+    uniquement dans votre navigateur.
+  </p>
+  <FormulaireGarage client:load />
+</BaseLayout>

@@ -1,0 +1,16 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import FormulaireProfil from '@/components/profil/FormulaireProfil';
+---
+
+<BaseLayout
+  title="Mon profil — VéloJauge"
+  description="Renseignez votre poids, votre niveau et votre FTP pour affiner les calculateurs de pacing et de nutrition. Aucun compte requis."
+>
+  <h1>Mon profil</h1>
+  <p>
+    Ces informations servent à personnaliser les outils de pacing et de nutrition. Elles restent
+    stockées uniquement dans votre navigateur.
+  </p>
+  <FormulaireProfil client:load />
+</BaseLayout>
