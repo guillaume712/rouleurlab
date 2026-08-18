@@ -5,8 +5,8 @@
 
 import type { NiveauCycliste, Profil, TypePratique, Velo } from '@/types';
 
-const CLE_PROFIL = 'velojauge:profil';
-const CLE_GARAGE = 'velojauge:garage';
+const CLE_PROFIL = 'rouleurlab:profil';
+const CLE_GARAGE = 'rouleurlab:garage';
 
 const NIVEAUX: readonly NiveauCycliste[] = ['debutant', 'intermediaire', 'confirme', 'expert'];
 const TYPES_PRATIQUE: readonly TypePratique[] = ['route', 'gravel', 'vtt', 'ville'];

@@ -26,14 +26,14 @@ describe('getProfil', () => {
   });
 
   it('retourne le profil par défaut si localStorage contient du JSON invalide', () => {
-    window.localStorage.setItem('velojauge:profil', '{ ceci nest pas du json');
+    window.localStorage.setItem('rouleurlab:profil', '{ ceci nest pas du json');
     const profil = getProfil();
     expect(profil).toEqual(expect.objectContaining(getProfilParDefaut()));
   });
 
   it('retourne le profil par défaut si les données sont hors plage plausible', () => {
     window.localStorage.setItem(
-      'velojauge:profil',
+      'rouleurlab:profil',
       JSON.stringify({ poids_kg: 9999, niveau: 'intermediaire', ftp_w: null, mis_a_jour_le: '2020-01-01' }),
     );
     const profil = getProfil();
@@ -100,7 +100,7 @@ describe('garage (getVelos / sauvegarderVelo / supprimerVelo)', () => {
   });
 
   it('ignore les vélos corrompus lors de la lecture', () => {
-    window.localStorage.setItem('velojauge:garage', JSON.stringify([{ nom: 'incomplet' }]));
+    window.localStorage.setItem('rouleurlab:garage', JSON.stringify([{ nom: 'incomplet' }]));
     expect(getVelos()).toEqual([]);
   });
 });

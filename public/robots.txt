@@ -3,4 +3,4 @@ Allow: /
 Disallow: /profil
 Disallow: /mon-garage
 
-Sitemap: https://velojauge.fr/sitemap-index.xml
+Sitemap: https://rouleurlab.fr/sitemap-index.xml
