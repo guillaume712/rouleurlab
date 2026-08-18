@@ -238,6 +238,24 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
         font-size: 0.8rem;
         margin-top: 0.25rem;
       }
+
+      /* Résultat d'un calculateur (longueur de chaîne, et outils suivants). */
+      .resultat {
+        margin-top: 1.5rem;
+        padding: 1rem 1.25rem;
+        border: 1px solid #2e333a;
+        border-radius: 8px;
+        background: #161a1f;
+      }
+      .resultat-principal {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--color-accent);
+        margin: 0 0 0.5rem;
+      }
+      .resultat .aide {
+        margin-top: 0.4rem;
+      }
     </style>
   </body>
 </html>
