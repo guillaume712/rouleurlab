@@ -19,6 +19,18 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <link rel="canonical" href={canonicalURL} />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <!--
+      TEMPORAIRE : en attendant l'achat du nom de domaine réel (rouleurlab.fr),
+      le site est déployé sur le sous-domaine gratuit rouleurlab.pages.dev, qui
+      N'EST PAS exclu de l'indexation par défaut (vérifié sur la doc Cloudflare
+      Pages — seuls les liens de preview aléatoires le sont, pas le sous-domaine
+      de production). On bloque donc explicitement l'indexation ici pour éviter
+      qu'une URL provisoire soit indexée puis dilue le référencement du vrai
+      domaine plus tard.
+      À RETIRER à l'Étape 9/11 (lancement sur le vrai domaine), en même temps
+      que la restauration de public/robots.txt.
+    -->
+    <meta name="robots" content="noindex, nofollow" />
   </head>
   <body>
     <header class="site-header">
