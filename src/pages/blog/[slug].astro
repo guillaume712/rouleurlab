@@ -1,0 +1,53 @@
+---
+// Route générique pour tous les articles de la collection "blog".
+// Un seul article existe à l'Étape 2 (couple-de-serrage-guide) ; ce mécanisme
+// est celui prévu par le plan pour tout le contenu fondateur de l'Étape 8.
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const articles = await getCollection('blog');
+  return articles.map((article) => ({
+    params: { slug: article.id },
+    props: { article },
+  }));
+}
+
+const { article } = Astro.props;
+const { Content } = await render(article);
+const dateAffichee = article.data.datePublication.toLocaleDateString('fr-FR', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+});
+---
+
+<BaseLayout title={`${article.data.title} | RouleurLab`} description={article.data.description}>
+  <article>
+    <p class="aide">Publié le {dateAffichee}</p>
+    <h1>{article.data.title}</h1>
+    <div class="contenu-article">
+      <Content />
+    </div>
+    {
+      article.data.outilLie && (
+        <p>
+          <a href={article.data.outilLie}>← Retour à l’outil correspondant</a>
+        </p>
+      )
+    }
+  </article>
+
+  <style>
+    .contenu-article :global(h2) {
+      margin-top: 2rem;
+      font-size: 1.25rem;
+    }
+    .contenu-article :global(p) {
+      margin: 1rem 0;
+    }
+    .contenu-article :global(a) {
+      color: var(--color-accent);
+    }
+  </style>
+</BaseLayout>

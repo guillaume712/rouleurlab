@@ -1,0 +1,45 @@
+---
+import OutilLayout from '@/layouts/OutilLayout.astro';
+import CoupleDeSerrage from '@/components/outils/CoupleDeSerrage';
+import { SOURCE_COUPLE_SERRAGE } from '@/lib/calculs/coupleSerrage';
+---
+
+<OutilLayout
+  title="Couple de serrage vélo — table de référence (N·m) | RouleurLab"
+  description="Table de référence des couples de serrage courants en cyclisme (potence, cassette, disque, pédalier...) en newton-mètres, sourcée et avec ses limites clairement indiquées."
+  filAriane={[{ label: 'Accueil', href: '/' }, { label: 'Couple de serrage' }]}
+>
+  <h1>Couple de serrage vélo</h1>
+  <p>
+    Table de référence des couples de serrage les plus courants sur un vélo, en newton-mètres
+    (N·m). Cherchez un composant ci-dessous.
+  </p>
+
+  <p class="avertissement">
+    <strong>Ce tableau donne des repères généraux, pas des spécifications constructeur.</strong>
+    La valeur imprimée sur la pièce elle-même (potence, tige de selle, cadre carbone…) prévaut
+    toujours sur ce tableau. En cas de doute — en particulier sur des pièces carbone, où un
+    serrage excessif peut fissurer la pièce — utilisez une clé dynamométrique et respectez la
+    valeur du fabricant.
+  </p>
+
+  <CoupleDeSerrage client:load />
+
+  <p>
+    Pour comprendre pourquoi respecter ces valeurs (et ce qui se passe si on ne le fait pas), lire
+    l’article : <a href="/blog/couple-de-serrage-guide">Pourquoi le couple de serrage compte sur un vélo</a>.
+  </p>
+
+  <Fragment slot="sources">
+    <p>
+      Source : <a href={SOURCE_COUPLE_SERRAGE.url} rel="nofollow noopener" target="_blank">{SOURCE_COUPLE_SERRAGE.nom}</a>,
+      consultée le {SOURCE_COUPLE_SERRAGE.consultee_le}.
+    </p>
+    <p>
+      Limites : ces plages sont génériques et regroupent plusieurs marques/modèles. Elles ne
+      remplacent jamais la notice ou la valeur imprimée par le fabricant de votre pièce précise.
+      Certaines plages (potence/cintre, rails de selle) sont volontairement larges car elles
+      dépendent fortement du design exact — voir la note affichée avec ces lignes.
+    </p>
+  </Fragment>
+</OutilLayout>

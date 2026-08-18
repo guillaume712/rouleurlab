@@ -1,0 +1,102 @@
+---
+// Layout partagé par toutes les pages "outil" (Étape 2 — doit rester réutilisable
+// tel quel pour les outils suivants : longueur de chaîne, ETRTO, cassette/dérailleur...).
+// Ajoute au BaseLayout : fil d'Ariane (visuel + JSON-LD BreadcrumbList) et un
+// emplacement standard pour les sources/limites de chaque outil.
+import BaseLayout from './BaseLayout.astro';
+
+interface MaillonFilAriane {
+  label: string;
+  href?: string;
+}
+
+interface Props {
+  title: string;
+  description: string;
+  filAriane: MaillonFilAriane[];
+}
+
+const { title, description, filAriane } = Astro.props;
+
+const jsonLdFilAriane = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: filAriane.map((maillon, index) => ({
+    '@type': 'ListItem',
+    position: index + 1,
+    name: maillon.label,
+    ...(maillon.href ? { item: new URL(maillon.href, Astro.site).toString() } : {}),
+  })),
+};
+---
+
+<BaseLayout title={title} description={description}>
+  <nav aria-label="Fil d’Ariane" class="fil-ariane">
+    <ol>
+      {
+        filAriane.map((maillon, index) => (
+          <li>
+            {maillon.href ? <a href={maillon.href}>{maillon.label}</a> : <span aria-current="page">{maillon.label}</span>}
+            {index < filAriane.length - 1 && (
+              <span class="separateur" aria-hidden="true">
+                /
+              </span>
+            )}
+          </li>
+        ))
+      }
+    </ol>
+  </nav>
+
+  <slot />
+
+  <section class="sources-limites">
+    <h2>Sources et limites</h2>
+    <slot name="sources" />
+  </section>
+
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLdFilAriane)} />
+
+  <style>
+    .fil-ariane ol {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      padding: 0;
+      margin: 0 0 1.5rem;
+      font-size: 0.85rem;
+      color: var(--color-muted);
+    }
+    .fil-ariane li {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .fil-ariane .separateur {
+      color: var(--color-muted);
+    }
+    .fil-ariane [aria-current='page'] {
+      color: var(--color-text);
+    }
+    .sources-limites {
+      margin-top: 2.5rem;
+      padding: 1rem 1.25rem;
+      border: 1px solid #2e333a;
+      border-radius: 8px;
+      background: #161a1f;
+    }
+    .sources-limites h2 {
+      font-size: 1rem;
+      margin: 0 0 0.5rem;
+    }
+    .sources-limites :global(p) {
+      color: var(--color-muted);
+      font-size: 0.875rem;
+      margin: 0.4rem 0;
+    }
+    .sources-limites :global(a) {
+      color: var(--color-accent);
+    }
+  </style>
+</BaseLayout>

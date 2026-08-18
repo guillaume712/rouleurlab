@@ -180,6 +180,64 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
       .liste-velos li span {
         flex: 1;
       }
+
+      /* Styles partagés des pages outil (tableaux de référence, avertissements). */
+      .avertissement {
+        border: 1px solid #7a5a1a;
+        background: #201a0e;
+        border-radius: 8px;
+        padding: 0.9rem 1.1rem;
+        margin: 1.25rem 0;
+        font-size: 0.9rem;
+      }
+      .avertissement strong {
+        color: var(--color-accent);
+      }
+      .filtre-recherche {
+        width: 100%;
+        max-width: 360px;
+        margin-bottom: 1rem;
+      }
+      .table-reference-conteneur {
+        overflow-x: auto;
+      }
+      table.table-reference {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.9rem;
+      }
+      table.table-reference caption {
+        text-align: left;
+        color: var(--color-muted);
+        font-size: 0.8rem;
+        margin-bottom: 0.5rem;
+      }
+      table.table-reference th,
+      table.table-reference td {
+        text-align: left;
+        padding: 0.55rem 0.7rem;
+        border-bottom: 1px solid #24282e;
+        vertical-align: top;
+      }
+      table.table-reference th {
+        color: var(--color-muted);
+        font-weight: 600;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.02em;
+      }
+      table.table-reference td.valeur {
+        white-space: nowrap;
+        font-variant-numeric: tabular-nums;
+        color: var(--color-accent);
+        font-weight: 600;
+      }
+      table.table-reference .note {
+        display: block;
+        color: var(--color-muted);
+        font-size: 0.8rem;
+        margin-top: 0.25rem;
+      }
     </style>
   </body>
 </html>
