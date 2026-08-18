@@ -1,0 +1,49 @@
+---
+import OutilLayout from '@/layouts/OutilLayout.astro';
+import CompatibilitePneuJante from '@/components/outils/CompatibilitePneuJante';
+import { SOURCE_COMPATIBILITE_PNEU_JANTE } from '@/lib/calculs/compatibilitePneuJante';
+---
+
+<OutilLayout
+  title="Compatibilité pneu/jante (ETRTO) — calculateur | RouleurLab"
+  description="Vérifiez si votre pneu est compatible avec votre jante selon la norme ETRTO : plage recommandée, plage tolérée, et règle spécifique pour les jantes hookless."
+  filAriane={[{ label: 'Accueil', href: '/' }, { label: 'Compatibilité pneu/jante' }]}
+>
+  <h1>Compatibilité pneu / jante</h1>
+  <p>
+    Vérifie si la largeur de votre pneu est adaptée à la largeur interne de votre jante, selon les
+    repères ETRTO — avec une plage recommandée et une plage tolérée, jamais une valeur unique
+    présentée comme absolue.
+  </p>
+
+  <p class="avertissement">
+    <strong>Ceci ne remplace pas la vérification du diamètre de jante (BSD)</strong>, qui doit être
+    strictement identique entre pneu et jante indépendamment de la largeur — voir le rappel affiché
+    avec le résultat.
+  </p>
+
+  <CompatibilitePneuJante client:load />
+
+  <p>
+    Pour comprendre pourquoi cette compatibilité n’est pas qu'une question de "ça rentre ou pas",
+    lire l’article :
+    <a href="/blog/compatibilite-pneu-jante-guide">Pneu et jante : pourquoi la largeur seule ne suffit pas</a>.
+  </p>
+
+  <Fragment slot="sources">
+    <p>
+      Source : points de repère ETRTO recoupés sur plusieurs sources indépendantes
+      (<a href={SOURCE_COMPATIBILITE_PNEU_JANTE.urls[0]} rel="nofollow noopener" target="_blank">biketips.com</a>,
+      <a href={SOURCE_COMPATIBILITE_PNEU_JANTE.urls[1]} rel="nofollow noopener" target="_blank">renehersecycles.com</a>,
+      <a href={SOURCE_COMPATIBILITE_PNEU_JANTE.urls[2]} rel="nofollow noopener" target="_blank">enve.com</a>),
+      consultées le {SOURCE_COMPATIBILITE_PNEU_JANTE.consultee_le}.
+    </p>
+    <p>
+      Limites : le tableau officiel ETRTO/ISO 5775 est un document payant que nous ne pouvons pas
+      reproduire ; les plages affichées ici sont interpolées entre des points de repère documentés,
+      pas une copie de ce tableau. Cet outil ne couvre que les largeurs de jante entre 19 et 25 mm
+      (données vérifiées) et ne vérifie pas le diamètre (BSD). En cas de doute, vérifiez les
+      spécifications précises du fabricant de votre pneu et de votre jante.
+    </p>
+  </Fragment>
+</OutilLayout>
