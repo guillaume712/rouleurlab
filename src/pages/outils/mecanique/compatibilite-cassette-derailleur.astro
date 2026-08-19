@@ -1,0 +1,42 @@
+---
+import OutilLayout from '@/layouts/OutilLayout.astro';
+import CompatibiliteCassetteDerailleur from '@/components/outils/CompatibiliteCassetteDerailleur';
+import { SOURCE_FORMULE_CAPACITE } from '@/lib/calculs/donnees/derailleurs';
+---
+
+<OutilLayout
+  title="Compatibilité cassette/dérailleur — calculateur | RouleurLab"
+  description="Vérifiez si votre cassette est compatible avec votre dérailleur arrière : pignon maximum supporté et capacité totale de la chape."
+  filAriane={[{ label: 'Accueil', href: '/' }, { label: 'Compatibilité cassette/dérailleur' }]}
+>
+  <h1>Compatibilité cassette / dérailleur</h1>
+  <p>
+    Vérifie deux limites indépendantes de votre dérailleur arrière : le plus grand pignon qu'il
+    supporte, et la capacité totale de sa chape (l'écart plateaux + l'écart cassette qu'il peut
+    absorber).
+  </p>
+
+  <CompatibiliteCassetteDerailleur client:load />
+
+  <p>
+    Pour comprendre pourquoi deux vélos avec la même cassette peuvent avoir des résultats
+    différents, lire l’article :
+    <a href="/blog/compatibilite-cassette-derailleur-guide">Cassette et dérailleur : deux limites à ne pas confondre</a>.
+  </p>
+
+  <Fragment slot="sources">
+    <p>
+      Base de dérailleurs volontairement non exhaustive (voir l'article) : chaque modèle cite sa
+      source (fiche produit officielle du fabricant), consultée le 18/08/2026. Certaines valeurs de
+      capacité totale ne sont pas publiées telles quelles par le fabricant et sont alors calculées
+      avec la formule officielle de SRAM
+      (<a href={SOURCE_FORMULE_CAPACITE.url} rel="nofollow noopener" target="_blank">source</a>) —
+      c'est indiqué pour chaque modèle concerné.
+    </p>
+    <p>
+      Limites : de nouveaux modèles de dérailleurs sortent chaque année ; si le vôtre ne figure pas
+      dans la liste, vérifiez les spécifications de votre fabricant (pignon max et capacité totale
+      sont presque toujours indiqués sur la fiche produit).
+    </p>
+  </Fragment>
+</OutilLayout>
