@@ -1,0 +1,76 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Confidentialité — RouleurLab"
+  description="Quelles données RouleurLab collecte (et ne collecte pas) : stockage local du profil et du garage, mesure d'audience Cloudflare, suivi d'erreurs Sentry."
+>
+  <h1>Confidentialité</h1>
+  <p>
+    RouleurLab ne demande pas de compte et ne fait pas payer l'accès à ses outils. Cette page
+    explique concrètement quelles données sont traitées, où elles vont, et ce qui n'est volontairement
+    pas mis en place.
+  </p>
+
+  <h2>Profil et garage : uniquement dans votre navigateur</h2>
+  <p>
+    Les informations que vous saisissez dans <a href="/profil">Mon profil</a> et <a href="/mon-garage">Mon garage</a> (FTP, poids, vélos enregistrés...) sont stockées
+    exclusivement dans le stockage local de votre navigateur (localStorage). Elles ne sont jamais
+    envoyées à un serveur, ni par RouleurLab ni par un tiers : le site n'a techniquement aucun accès à
+    ces données. Elles restent sur l'appareil et le navigateur où vous les avez saisies ; elles ne
+    vous suivent pas si vous changez d'appareil ou videz les données de navigation de votre navigateur.
+  </p>
+
+  <h2>Mesure d'audience — Cloudflare Web Analytics</h2>
+  <p>
+    Si elle est activée, RouleurLab utilise Cloudflare Web Analytics pour compter les visites de
+    façon agrégée (pages vues, provenance approximative, type d'appareil), sans objectif de
+    reconnaître un visiteur individuel d'une visite à l'autre.
+  </p>
+  <p>
+    Cloudflare décrit cet outil comme n'utilisant « aucun état côté client, comme des cookies ou du
+    localStorage » et ne pratiquant jamais d'empreinte numérique (« fingerprinting ») des visiteurs
+    (source : cloudflare.com/trust-hub/gdpr, consulté le 19/08/2026). Deux nuances méritent d'être
+    dites honnêtement plutôt que passées sous silence : un examen technique indépendant de l'outil a
+    relevé qu'au lancement en 2020, un cookie identifiant unique était bien déposé malgré la
+    communication « sans cookie », avant que Cloudflare ne le retire ; et la politique de
+    confidentialité de Cloudflare mentionne, de façon plus large, pouvoir journaliser les adresses IP
+    des utilisateurs finaux — ce qui contredit partiellement l'affirmation marketing selon laquelle
+    aucune partie de l'adresse IP n'est stockée (source : Ctrl blog, « A technical and privacy review
+    of Cloudflare Web Analytics », ctrl.blog/entry/review-cloudflare-analytics.html, consulté le
+    19/08/2026). Aucun bandeau de consentement n'est affiché sur ce site tant que ce point n'est pas
+    éclairci plus précisément, RouleurLab s'appuyant sur le fait qu'il n'y a pas de dépôt de cookie ni
+    de traceur persistant côté client à ce jour.
+  </p>
+  <p class="aide">
+    Cette mesure d'audience n'est activée que si un identifiant de configuration est renseigné côté
+    serveur au moment de la mise en ligne ; en son absence, aucun script n'est chargé et rien n'est
+    envoyé à Cloudflare Web Analytics.
+  </p>
+
+  <h2>Suivi d'erreurs — Sentry</h2>
+  <p>
+    Si activé, RouleurLab utilise Sentry pour être notifié automatiquement en cas d'erreur technique
+    (bug dans un calculateur, par exemple). En cas d'erreur, Sentry peut recevoir : le message
+    d'erreur et la pile d'appels techniques, l'URL de la page concernée, le type de navigateur et de
+    système d'exploitation, et l'adresse IP au moment de l'envoi. RouleurLab ne configure aucune
+    collecte volontaire d'identifiant personnel (pas de nom, pas d'e-mail transmis automatiquement) ;
+    l'échantillonnage des traces de performance est désactivé (0 %). Comme pour la mesure d'audience,
+    ce suivi n'est actif que si une configuration est renseignée côté serveur au moment de la mise en
+    ligne.
+  </p>
+
+  <h2>Ce qui n'existe pas sur ce site</h2>
+  <p>
+    Pas de compte utilisateur, pas de mot de passe, pas de newsletter, pas de publicité, pas de
+    revente de données à des tiers, pas de traceur publicitaire, pas de partage de vos données de
+    profil ou de garage avec qui que ce soit — elles ne quittent techniquement jamais votre
+    navigateur.
+  </p>
+
+  <h2>Contact</h2>
+  <p>
+    Pour toute question sur ce traitement de données, voir la page <a href="/contact">Contact</a>.
+  </p>
+</BaseLayout>

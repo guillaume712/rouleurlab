@@ -1,0 +1,36 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+
+// Étape 9 — adresse de contact provisoire (choix explicite de l'utilisateur :
+// e-mail placeholder en attendant l'achat du domaine réel rouleurlab.fr et le
+// lancement public). À remplacer par l'adresse définitive une fois le domaine
+// acquis.
+const emailContact = 'contact@rouleurlab.fr';
+---
+
+<BaseLayout
+  title="Contact — RouleurLab"
+  description="Signaler une erreur, une source douteuse ou poser une question sur les outils RouleurLab."
+>
+  <h1>Contact</h1>
+  <p>
+    Une formule vous semble fausse, une source mal citée, un résultat incohérent ? C'est le meilleur
+    moyen de faire progresser RouleurLab — n'hésitez pas à écrire, même pour un doute mineur.
+  </p>
+
+  <p>
+    <a href={`mailto:${emailContact}`}>{emailContact}</a>
+  </p>
+
+  <p class="aide">
+    Adresse provisoire, le temps que RouleurLab soit lancé sur son nom de domaine définitif
+    (rouleurlab.fr). Elle sera mise à jour à ce moment-là si nécessaire.
+  </p>
+
+  <p>
+    Pour un signalement précis, le plus utile est d'indiquer : la page concernée, la valeur ou la
+    formule en question, et si possible la source qui vous semble contredire ce qui est affiché. Voir
+    aussi la page <a href="/methodologie">Méthodologie</a> pour comprendre comment les sources sont
+    utilisées sur ce site.
+  </p>
+</BaseLayout>

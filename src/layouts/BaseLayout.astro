@@ -4,10 +4,28 @@
 interface Props {
   title: string;
   description: string;
+  /** Chemin de l'image de partage (Open Graph/Twitter), relatif au site. Par défaut : og-image.png. */
+  image?: string;
 }
 
-const { title, description } = Astro.props;
+const { title, description, image = '/og-image.png' } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const imageURL = new URL(image, Astro.site);
+
+// Étape 9 — schéma WebSite minimal (nom + url), pour aider les moteurs de
+// recherche à identifier le site. Pas de SearchAction : il n'y a pas de
+// recherche interne sur le site, on n'invente pas une fonctionnalité qui
+// n'existe pas.
+const jsonLdSite = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'RouleurLab',
+  url: Astro.site?.toString(),
+  inLanguage: 'fr-FR',
+};
+
+const cfAnalyticsToken = import.meta.env.PUBLIC_CF_ANALYTICS_TOKEN;
+const sentryDsn = import.meta.env.PUBLIC_SENTRY_DSN;
 ---
 
 <!doctype html>
@@ -19,6 +37,22 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <link rel="canonical" href={canonicalURL} />
     <title>{title}</title>
     <meta name="description" content={description} />
+
+    <!-- Open Graph / Twitter — partage sur réseaux sociaux et messageries. -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="RouleurLab" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:image" content={imageURL} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={imageURL} />
+
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLdSite)} />
+
     <!--
       TEMPORAIRE : en attendant l'achat du nom de domaine réel (rouleurlab.fr),
       le site est déployé sur le sous-domaine gratuit rouleurlab.pages.dev, qui
@@ -28,9 +62,27 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
       qu'une URL provisoire soit indexée puis dilue le référencement du vrai
       domaine plus tard.
       À RETIRER à l'Étape 9/11 (lancement sur le vrai domaine), en même temps
-      que la restauration de public/robots.txt.
+      que la restauration de public/robots.txt et l'ajout de la ligne Sitemap.
     -->
     <meta name="robots" content="noindex, nofollow" />
+
+    <!--
+      Cloudflare Web Analytics — script chargé UNIQUEMENT si un token est
+      renseigné (variable d'environnement PUBLIC_CF_ANALYTICS_TOKEN, vide par
+      défaut). Outil sans cookie ni empreinte individuelle côté client
+      (source : cloudflare.com/trust-hub/gdpr, consulté le 19/08/2026) — voir
+      /confidentialite pour le détail et les nuances.
+    -->
+    {
+      cfAnalyticsToken && (
+        <script
+          is:inline
+          defer
+          src="https://static.cloudflareinsights.com/beacon.min.js"
+          data-cf-beacon={JSON.stringify({ token: cfAnalyticsToken })}
+        />
+      )
+    }
   </head>
   <body>
     <header class="site-header">
@@ -47,7 +99,35 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     </main>
     <footer class="site-footer">
       <p>RouleurLab — outils gratuits pour cyclistes.</p>
+      <p class="liens-legaux">
+        <a href="/mentions-legales">Mentions légales</a>
+        <a href="/confidentialite">Confidentialité</a>
+        <a href="/contact">Contact</a>
+      </p>
     </footer>
+
+    <!--
+      Sentry — suivi d'erreurs, chargé UNIQUEMENT si un DSN est renseigné
+      (variable d'environnement PUBLIC_SENTRY_DSN, vide par défaut : rien
+      n'est envoyé à Sentry tant qu'elle ne l'est pas). Importé depuis un CDN
+      (esm.sh) plutôt que depuis le package npm : un script utilisant
+      define:vars est toujours traité par Astro comme is:inline (non
+      empaqueté par Vite), donc un import npm classique n'y fonctionnerait
+      pas — voir la doc Astro sur le traitement des scripts client. Épinglé
+      sur la branche majeure 10 (dernière branche stable au 19/08/2026, cf.
+      npmjs.com/package/@sentry/browser) pour éviter qu'une mise à jour
+      majeure change silencieusement le comportement. Voir /confidentialite.
+    -->
+    {
+      sentryDsn && (
+        <script define:vars={{ sentryDsn }} is:inline>
+          import('https://esm.sh/@sentry/browser@10').then(({ init }) => {
+            init({ dsn: sentryDsn, tracesSampleRate: 0 });
+          });
+        </script>
+      )
+    }
+
     <style is:global>
       :root {
         --color-bg: #0f1216;
@@ -90,6 +170,12 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
         color: var(--color-muted);
         padding: 2rem;
         font-size: 0.875rem;
+      }
+      .liens-legaux {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        margin-top: 0.5rem;
       }
       a {
         color: var(--color-accent);
