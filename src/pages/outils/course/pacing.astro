@@ -1,0 +1,60 @@
+---
+import OutilLayout from '@/layouts/OutilLayout.astro';
+import PacingCalculateur from '@/components/outils/PacingCalculateur';
+---
+
+<OutilLayout
+  title="Plan de puissance (pacing) — calculateur | RouleurLab"
+  description="Calcule un plan de puissance segment par segment à partir de votre FTP et du profil du parcours, avec suivi de la réserve anaérobie (W'balance)."
+  filAriane={[{ label: 'Accueil', href: '/' }, { label: 'Plan de puissance' }]}
+>
+  <h1>Plan de puissance (pacing)</h1>
+  <p>
+    Découpez votre parcours en tronçons (distance et pente moyenne), et l'outil calcule une
+    puissance cible par tronçon : une puissance constante de base, modulée à la hausse dans les
+    montées et à la baisse dans le plat ou en descente — en vérifiant que le plan reste tenable au
+    regard de votre FTP et de votre réserve anaérobie (W').
+  </p>
+
+  <p class="avertissement">
+    <strong>Ce n'est pas un plan optimisé au watt près.</strong> C'est une heuristique de répartition
+    de l'effort (méthode dite "de Gordon"), pas un solveur d'optimisation complet — voir le détail
+    dans « Sources et limites » ci-dessous.
+  </p>
+
+  <PacingCalculateur client:load />
+
+  <p>
+    Pour comprendre les notions utilisées (FTP, W', NP, IF, TSS) et les limites de ce type de
+    calcul, lire l'article :
+    <a href="/blog/plan-de-puissance-pacing-guide">pourquoi un plan de puissance n'est pas une prédiction</a>.
+  </p>
+
+  <Fragment slot="sources">
+    <p>
+      Modèle physique de puissance/vitesse : Martin, J.C. et al. (1998), "Validation of a
+      Mathematical Model for Road Cycling Power", <em>Journal of Applied Biomechanics</em>. Modèle
+      de réserve anaérobie (W'balance) : Skiba, P.F. et al. (2012), "Modeling the expenditure and
+      reconstitution of work capacity above critical power", <em>Medicine &amp; Science in Sports
+      &amp; Exercise</em>. Ces deux moteurs de calcul sont portés depuis un outil interne de
+      l'auteur (VéloPace), déjà utilisé et vérifié indépendamment.
+    </p>
+    <p>
+      Paramètres vélo par défaut (résistance au roulement Crr, traînée aérodynamique CdA) : voir le
+      détail et les sources (Best Bike Split, AeroX, Velodrome.shop, tests Chung Method de John
+      Karrasch) dans le code source — certaines valeurs par type de pratique (gravel, VTT, ville)
+      sont des estimations interpolées entre des points de repère mesurés, faute de mesure directe
+      trouvée pour ces catégories ; éditez la masse du vélo dans les options avancées si vous
+      connaissez la vôtre.
+    </p>
+    <p>
+      Limites : le modèle de fatigue/durabilité (décroissance de la puissance soutenable sur les
+      efforts très longs) et les solveurs d'optimisation avancés (programmation dynamique,
+      algorithme génétique, recuit simulé, Monte Carlo) du moteur source ne sont pas portés dans
+      cette version — le plan proposé est une heuristique raisonnable, pas un optimum mathématique.
+      Le vent n'est modélisé que comme une valeur unique "de face" sur tout le parcours (pas de
+      tracé GPX avec cap variable). Le W' par défaut (20 000 J) est une moyenne plausible, pas votre
+      valeur individuelle — elle ne se mesure fiablement qu'avec un test de puissance critique.
+    </p>
+  </Fragment>
+</OutilLayout>

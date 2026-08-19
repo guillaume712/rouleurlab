@@ -1,0 +1,49 @@
+---
+import OutilLayout from '@/layouts/OutilLayout.astro';
+import NutritionCalculateur from '@/components/outils/NutritionCalculateur';
+---
+
+<OutilLayout
+  title="Plan nutrition course (glucides, hydratation, sodium) — calculateur | RouleurLab"
+  description="Calcule des repères de glucides, hydratation et sodium par heure pour une sortie ou une course, selon la durée, l'intensité, la chaleur et votre niveau."
+  filAriane={[{ label: 'Accueil', href: '/' }, { label: 'Plan nutrition course' }]}
+>
+  <h1>Plan nutrition course</h1>
+  <p>
+    Donne des repères de glucides, de liquide et de sodium à ingérer par heure d'effort, à partir
+    de la durée prévue, de l'intensité visée, de la température et de l'humidité — avec un
+    plafond selon votre niveau (un débutant ne tolère généralement pas la même charge glucidique
+    qu'un coureur confirmé).
+  </p>
+
+  <NutritionCalculateur client:load />
+
+  <p>
+    Pour comprendre d'où viennent ces repères et pourquoi ce ne sont pas des valeurs universelles,
+    lire l'article :
+    <a href="/blog/plan-nutrition-course-guide">glucides, hydratation, sodium : des repères, pas une prescription</a>.
+  </p>
+
+  <Fragment slot="sources">
+    <p>
+      Glucides : Jeukendrup, A.E. (2014), "A step towards personalized sports nutrition: carbohydrate
+      intake during exercise", <em>Sports Medicine</em> ; ACSM Position Stand (2016) sur la
+      nutrition et la performance sportive. Hydratation : Cheuvront, S.N. &amp; Kenefick, R.W.
+      (2014), "Dehydration: physiology, assessment, and performance effects", <em>Comprehensive
+      Physiology</em> ; Sawka, M.N. et al., ACSM Position Stand (2007) sur l'exercice et le
+      remplacement hydrique. Électrolytes : ACSM Position Stand (300-700 mg de sodium par litre
+      pour un effort de plus d'1h) ; protocoles ultra-endurance (Hoffman, jusqu'à 1000-1500 mg/h par
+      forte chaleur). Ces formules sont portées depuis un outil interne de l'auteur
+      (RaceFuelPlanner).
+    </p>
+    <p>
+      Limites : ce sont des repères de littérature sportive appliqués à des formules simplifiées,
+      pas une prescription individualisée. La tolérance digestive réelle varie énormément d'une
+      personne à l'autre et s'entraîne progressivement (ne testez jamais un nouveau plan nutrition
+      le jour d'une course). En cas de trouble digestif à l'effort, de pathologie (diabète,
+      insuffisance rénale...) ou d'effort extrême (ultra-endurance, forte chaleur prolongée),
+      consultez un professionnel de santé ou un diététicien du sport plutôt que de vous fier
+      uniquement à cet outil.
+    </p>
+  </Fragment>
+</OutilLayout>
