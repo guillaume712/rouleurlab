@@ -1,0 +1,87 @@
+---
+import OutilLayout from '@/layouts/OutilLayout.astro';
+import FichePreparerMaSortie from '@/components/outils/FichePreparerMaSortie';
+---
+
+<OutilLayout
+  title="Préparer ma sortie — plan de puissance et nutrition | RouleurLab"
+  description="Une fiche unique qui combine votre plan de puissance et votre plan nutrition pour une sortie ou une course, à partir de votre profil et de votre parcours."
+  filAriane={[{ label: 'Accueil', href: '/' }, { label: 'Préparer ma sortie' }]}
+>
+  <h1>Préparer ma sortie</h1>
+  <p>
+    Renseignez votre profil et votre parcours une seule fois : cette fiche calcule votre plan de
+    puissance par tronçon, puis en déduit automatiquement la durée et l'intensité pour votre plan
+    nutrition — plus besoin de les ressaisir à la main. Le résultat est pensé pour être imprimé ou
+    gardé sous les yeux avant de partir.
+  </p>
+
+  <p class="avertissement no-print">
+    <strong>C'est une combinaison de deux estimations, pas une garantie.</strong> Chaque volet a ses
+    propres limites (heuristique de pacing, repères nutritionnels génériques) — voir le détail sur
+    les pages de chaque outil, liées sous le résultat.
+  </p>
+
+  <FichePreparerMaSortie client:load />
+
+  <Fragment slot="sources">
+    <p>
+      Cette fiche ne fait qu'assembler deux calculs déjà documentés séparément : voir les sources et
+      limites complètes du <a href="/outils/course/pacing">plan de puissance</a> (modèle physique
+      Martin et al. 1998, réserve anaérobie W' de Skiba et al. 2012) et du
+      <a href="/outils/course/nutrition">plan nutrition</a> (Jeukendrup 2014, ACSM, Cheuvront &amp;
+      Kenefick 2014).
+    </p>
+    <p>
+      Limite propre à la combinaison : la durée et l'intensité utilisées pour le plan nutrition sont
+      celles calculées par le plan de puissance, pas une durée que vous choisissez librement. Pour un
+      parcours très court ou dont l'intensité calculée sort de la plage couverte par le calcul
+      nutrition, ces valeurs sont ramenées à la borne la plus proche et c'est signalé sous le
+      résultat.
+    </p>
+  </Fragment>
+</OutilLayout>
+
+<style is:global>
+  @media print {
+    .site-header,
+    .fil-ariane,
+    .site-footer,
+    .sources-limites,
+    .no-print {
+      display: none !important;
+    }
+    body,
+    main {
+      background: #fff !important;
+      color: #111 !important;
+    }
+    .fiche-imprimable {
+      border: none !important;
+      background: #fff !important;
+      color: #111 !important;
+      padding: 0 !important;
+    }
+    .fiche-imprimable .resultat-principal,
+    .fiche-imprimable table.table-reference td.valeur {
+      color: #111 !important;
+    }
+    .fiche-imprimable .aide {
+      color: #444 !important;
+    }
+    .fiche-imprimable table.table-reference th,
+    .fiche-imprimable table.table-reference td {
+      border-color: #ccc !important;
+    }
+    .fiche-entete {
+      display: block !important;
+    }
+  }
+
+  .fiche-entete {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+</style>
