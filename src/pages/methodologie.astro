@@ -1,0 +1,79 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Méthodologie — comment RouleurLab construit ses outils | RouleurLab"
+  description="Comment les calculateurs de RouleurLab sont construits et vérifiés : sourcing systématique, plages plutôt que valeurs uniques, formules testées contre leur origine, données stockées uniquement chez vous."
+>
+  <h1>Méthodologie</h1>
+  <p>
+    RouleurLab existe parce que trop d'outils en ligne affichent un chiffre sans dire d'où il
+    vient. Cette page explique les règles qu'on s'impose pour éviter de faire pareil — pas des
+    engagements marketing, mais la façon dont chaque outil est réellement construit.
+  </p>
+
+  <h2>Chaque formule cite sa source</h2>
+  <p>
+    Aucun chiffre affiché par un calculateur RouleurLab n'est inventé ou "estimé à vue de nez" sans
+    le dire. Chaque outil a une section « Sources et limites » qui indique d'où vient la formule ou
+    la donnée (publication scientifique, documentation constructeur, norme technique), avec la date
+    à laquelle la source a été consultée. Quand une valeur par défaut est une estimation faute de
+    donnée directement mesurée trouvée (par exemple certains coefficients aérodynamiques par type de
+    vélo), c'est dit explicitement, pas présenté comme une mesure.
+  </p>
+
+  <h2>Des plages plutôt que des valeurs uniques</h2>
+  <p>
+    Beaucoup de questions mécaniques ou physiologiques n'ont pas de réponse à un seul chiffre : une
+    largeur de pneu compatible avec une jante donnée, un couple de serrage correct pour un
+    composant, un apport glucidique adapté à un effort. Quand la littérature ou les données
+    disponibles indiquent une fourchette, RouleurLab affiche une fourchette — généralement distinguée
+    entre une plage <strong>recommandée</strong> (le cœur de cible documenté) et une plage <strong>tolérée</strong> (ce qui reste acceptable mais mérite une vérification supplémentaire) — plutôt qu'un chiffre unique présenté à tort comme la seule bonne réponse.
+  </p>
+
+  <h2>Les calculateurs portés depuis un moteur existant sont testés contre leur origine</h2>
+  <p>
+    Certains outils (comme le plan de puissance ou le plan nutrition) sont des portages de moteurs
+    de calcul déjà utilisés et éprouvés par ailleurs. Dans ces cas, la vérification ne se limite pas
+    à relire le code : les résultats du portage sont comparés directement, valeur par valeur, à la
+    sortie du moteur d'origine exécuté indépendamment sur les mêmes scénarios. C'est la méthode de
+    vérification la plus rigoureuse qu'on connaisse pour ce type de travail — plus fiable qu'une
+    relecture ou qu'un recalcul manuel, qui peuvent reproduire la même erreur que le code qu'ils
+    vérifient.
+  </p>
+
+  <h2>Vos données restent chez vous</h2>
+  <p>
+    RouleurLab ne demande pas de création de compte. Votre profil et votre garage sont stockés
+    uniquement dans le stockage local de votre navigateur (localStorage) : rien n'est envoyé ni
+    conservé sur un serveur. Si vous changez de navigateur ou d'appareil, ces données ne vous
+    suivent pas automatiquement — c'est le compromis choisi pour ce MVP, expliqué en toutes lettres
+    plutôt que découvert après coup.
+  </p>
+
+  <h2>Les limites sont affichées, pas cachées</h2>
+  <p>
+    Un calculateur qui ne dit jamais ce qu'il ne sait pas faire est plus dangereux qu'utile. Chaque
+    outil documente explicitement ce qu'il ne couvre pas ou simplifie volontairement (par exemple :
+    le plan de puissance ne modélise pas la fatigue cumulative sur les efforts très longs ; le plan
+    nutrition donne des repères de littérature sportive, pas une prescription individualisée). Ce
+    n'est pas une case légale à cocher : c'est l'information dont vous avez besoin pour savoir
+    combien de confiance accorder au résultat.
+  </p>
+
+  <h2>Le site est gratuit et sans publicité</h2>
+  <p>
+    RouleurLab ne vend pas d'espace publicitaire et n'est pas rémunéré pour recommander un produit,
+    une marque ou un composant plutôt qu'un autre. C'est un projet indépendant, en développement
+    actif : de nouveaux outils et contenus sont ajoutés progressivement.
+  </p>
+
+  <h2>Une erreur repérée ?</h2>
+  <p>
+    Si une formule, une source ou un résultat vous semble incorrect, on veut le savoir — mieux vaut
+    corriger une erreur signalée que la laisser traîner. Une page de contact dédiée sera mise en
+    ligne avant le lancement public du site ; en attendant, cette page sera mise à jour avec un
+    moyen de nous contacter directement.
+  </p>
+</BaseLayout>
