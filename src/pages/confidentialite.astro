@@ -24,9 +24,11 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 
   <h2>Mesure d'audience — Cloudflare Web Analytics</h2>
   <p>
-    Si elle est activée, RouleurLab utilise Cloudflare Web Analytics pour compter les visites de
-    façon agrégée (pages vues, provenance approximative, type d'appareil), sans objectif de
-    reconnaître un visiteur individuel d'une visite à l'autre.
+    RouleurLab utilise Cloudflare Web Analytics pour compter les visites de façon agrégée (pages
+    vues, provenance approximative, type d'appareil), sans objectif de reconnaître un visiteur
+    individuel d'une visite à l'autre. Ce script est injecté automatiquement par Cloudflare au niveau
+    du domaine rouleurlab.fr (ce n'est pas un script ajouté par le code du site) : il est actif en
+    permanence, pas conditionné à une configuration particulière.
   </p>
   <p>
     Cloudflare décrit cet outil comme n'utilisant « aucun état côté client, comme des cookies ou du
@@ -43,11 +45,6 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
     éclairci plus précisément, RouleurLab s'appuyant sur le fait qu'il n'y a pas de dépôt de cookie ni
     de traceur persistant côté client à ce jour.
   </p>
-  <p class="aide">
-    Cette mesure d'audience n'est activée que si un identifiant de configuration est renseigné côté
-    serveur au moment de la mise en ligne ; en son absence, aucun script n'est chargé et rien n'est
-    envoyé à Cloudflare Web Analytics.
-  </p>
 
   <h2>Suivi d'erreurs — Sentry</h2>
   <p>
@@ -56,9 +53,10 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
     d'erreur et la pile d'appels techniques, l'URL de la page concernée, le type de navigateur et de
     système d'exploitation, et l'adresse IP au moment de l'envoi. RouleurLab ne configure aucune
     collecte volontaire d'identifiant personnel (pas de nom, pas d'e-mail transmis automatiquement) ;
-    l'échantillonnage des traces de performance est désactivé (0 %). Comme pour la mesure d'audience,
-    ce suivi n'est actif que si une configuration est renseignée côté serveur au moment de la mise en
-    ligne.
+    l'échantillonnage des traces de performance est désactivé (0 %). Contrairement à la mesure
+    d'audience Cloudflare (active en permanence, voir ci-dessus), ce suivi Sentry n'est actif que si
+    une configuration est renseignée côté serveur au moment de la mise en ligne — en son absence,
+    aucun script n'est chargé et rien n'est envoyé à Sentry.
   </p>
 
   <h2>Ce qui n'existe pas sur ce site</h2>

@@ -24,7 +24,6 @@ const jsonLdSite = {
   inLanguage: 'fr-FR',
 };
 
-const cfAnalyticsToken = import.meta.env.PUBLIC_CF_ANALYTICS_TOKEN;
 const sentryDsn = import.meta.env.PUBLIC_SENTRY_DSN;
 ---
 
@@ -54,22 +53,13 @@ const sentryDsn = import.meta.env.PUBLIC_SENTRY_DSN;
     <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLdSite)} />
 
     <!--
-      Cloudflare Web Analytics — script chargé UNIQUEMENT si un token est
-      renseigné (variable d'environnement PUBLIC_CF_ANALYTICS_TOKEN, vide par
-      défaut). Outil sans cookie ni empreinte individuelle côté client
-      (source : cloudflare.com/trust-hub/gdpr, consulté le 19/08/2026) — voir
-      /confidentialite pour le détail et les nuances.
+      Cloudflare Web Analytics : PAS de script manuel ici. Depuis que
+      rouleurlab.fr est une zone DNS Cloudflare à part entière, Cloudflare
+      injecte automatiquement son propre script de mesure d'audience côté
+      edge (réglage "Web Analytics" > RUM automatique sur la zone) —
+      indépendamment du code de ce site. Un script manuel ici ferait doublon.
+      Voir /confidentialite pour le détail et les nuances.
     -->
-    {
-      cfAnalyticsToken && (
-        <script
-          is:inline
-          defer
-          src="https://static.cloudflareinsights.com/beacon.min.js"
-          data-cf-beacon={JSON.stringify({ token: cfAnalyticsToken })}
-        />
-      )
-    }
   </head>
   <body>
     <header class="site-header">
