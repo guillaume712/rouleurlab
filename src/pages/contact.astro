@@ -1,10 +1,10 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 
-// Étape 9 — adresse de contact provisoire (choix explicite de l'utilisateur :
-// e-mail placeholder en attendant l'achat du domaine réel rouleurlab.fr et le
-// lancement public). À remplacer par l'adresse définitive une fois le domaine
-// acquis.
+// Étape 9 — adresse de contact définitive. rouleurlab.fr est acquis et en
+// ligne, et contact@rouleurlab.fr redirige (Cloudflare Email Routing) vers la
+// boîte mail de l'exploitant — redirection testée et confirmée fonctionnelle
+// le 20/08/2026.
 const emailContact = 'contact@rouleurlab.fr';
 ---
 
@@ -20,11 +20,6 @@ const emailContact = 'contact@rouleurlab.fr';
 
   <p>
     <a href={`mailto:${emailContact}`}>{emailContact}</a>
-  </p>
-
-  <p class="aide">
-    Adresse provisoire, le temps que RouleurLab soit lancé sur son nom de domaine définitif
-    (rouleurlab.fr). Elle sera mise à jour à ce moment-là si nécessaire.
   </p>
 
   <p>
