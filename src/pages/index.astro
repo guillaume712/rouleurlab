@@ -91,7 +91,13 @@ const outilVedette = {
               <svg viewBox="0 0 24 24"><path d="M12 3.5 19 7.5v9L12 20.5 5 16.5v-9z" /><circle cx="12" cy="12" r="3" /></svg>
             )}
             {outil.icone === 'chaine' && (
-              <svg viewBox="0 0 24 24"><path d="M9 15 15 9" /><path d="M8 13a4 4 0 0 1 0-5.6l2-2a4 4 0 0 1 5.6 5.6l-1 1" /><path d="M16 11a4 4 0 0 1 0 5.6l-2 2a4 4 0 0 1-5.6-5.6l1-1" /></svg>
+              <svg viewBox="0 0 24 24">
+                <rect x="1" y="9" width="8" height="6" rx="3" />
+                <rect x="8" y="9" width="8" height="6" rx="3" />
+                <rect x="15" y="9" width="8" height="6" rx="3" />
+                <circle cx="8.5" cy="12" r="0.9" fill="currentColor" stroke="none" />
+                <circle cx="15.5" cy="12" r="0.9" fill="currentColor" stroke="none" />
+              </svg>
             )}
             {outil.icone === 'roue' && (
               <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" /><circle cx="12" cy="12" r="2.3" /><path d="M12 4v4M12 16v4M4 12h4M16 12h4M6.5 6.5l2.6 2.6M14.9 14.9l2.6 2.6M17.5 6.5l-2.6 2.6M9.1 14.9l-2.6 2.6" /></svg>
