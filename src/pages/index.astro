@@ -1,46 +1,166 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+// Accueil — refonte visuelle (retour utilisateur 20/08/2026) : la version
+// précédente était une simple liste de liens soulignés, tous de même poids
+// visuel, avec un message "site en construction" trompeur (tous les outils
+// du MVP sont en ligne et fonctionnels). Remplacée par des cartes groupées
+// par catégorie, avec pictogramme par outil pour la reconnaissance rapide,
+// et un outil "vedette" mis en avant (Préparer ma sortie, qui combine les
+// deux outils course en une fiche). Palette et thème inchangés (sombre +
+// accent orange) — seule la hiérarchie et la mise en page évoluent.
+
+const outilsMecanique = [
+  {
+    href: '/outils/mecanique/couple-de-serrage',
+    titre: 'Couple de serrage vélo',
+    description: 'Table de référence des couples courants (potence, cassette, disque, pédalier…), sources et limites incluses.',
+    icone: 'serrage',
+  },
+  {
+    href: '/outils/mecanique/longueur-chaine',
+    titre: 'Longueur de chaîne',
+    description: 'Nombre de maillons à partir de vos bases, plateaux et cassette — pré-rempli depuis votre garage.',
+    icone: 'chaine',
+  },
+  {
+    href: '/outils/mecanique/compatibilite-pneu-jante',
+    titre: 'Compatibilité pneu/jante',
+    description: 'Plage recommandée et plage tolérée (ETRTO) selon la largeur de jante, règle hookless comprise.',
+    icone: 'roue',
+  },
+  {
+    href: '/outils/mecanique/compatibilite-cassette-derailleur',
+    titre: 'Cassette / dérailleur',
+    description: 'Vérifie le pignon maximum et la capacité totale de votre dérailleur arrière.',
+    icone: 'cassette',
+  },
+];
+
+const outilsCourse = [
+  {
+    href: '/outils/course/pacing',
+    titre: 'Plan de puissance',
+    description: "Puissance cible par tronçon à partir de votre FTP, avec suivi de la réserve anaérobie (W'balance).",
+    icone: 'eclair',
+  },
+  {
+    href: '/outils/course/nutrition',
+    titre: 'Plan nutrition course',
+    description: 'Repères de glucides, hydratation et sodium par heure d’effort selon durée, intensité et chaleur.',
+    icone: 'goutte',
+  },
+];
+
+const outilVedette = {
+  href: '/outils/course/preparer-ma-sortie',
+  titre: 'Préparer ma sortie',
+  description: 'Combine pacing et nutrition en une seule fiche imprimable, calculée en une seule saisie.',
+  icone: 'fiche',
+};
 ---
 
 <BaseLayout
   title="RouleurLab — outils gratuits pour cyclistes"
   description="Calculateurs de compatibilité mécanique et outils de préparation de course pour cyclistes, gratuits et sourcés."
 >
-  <h1>RouleurLab</h1>
-  <p>
-    Le site est en construction. Les outils arrivent au fil des prochaines étapes du plan de
-    développement.
-  </p>
+  <section class="hero">
+    <h1>RouleurLab</h1>
+    <p class="hero-intro">
+      Des calculateurs gratuits et sourcés pour la mécanique vélo et la préparation de course —
+      sans compte obligatoire, sans publicité.
+    </p>
+  </section>
 
-  <h2>Outils disponibles</h2>
-  <p>
-    <a href="/outils/mecanique/couple-de-serrage">Couple de serrage vélo</a> — table de référence des couples de serrage courants (potence, cassette, disque, pédalier…), avec ses sources et ses limites. À lire en complément : <a href="/blog/couple-de-serrage-guide">pourquoi le couple de serrage compte sur un vélo</a>.
-  </p>
-  <p>
-    <a href="/outils/mecanique/longueur-chaine">Longueur de chaîne</a> — calcule le nombre de maillons nécessaire à partir de vos bases, plateaux et cassette, avec pré-remplissage depuis votre garage. À lire en complément : <a href="/blog/longueur-chaine-guide">comment on calcule la longueur d’une chaîne de vélo</a>.
-  </p>
-  <p>
-    <a href="/outils/mecanique/compatibilite-pneu-jante">Compatibilité pneu/jante (ETRTO)</a> — plage recommandée et plage tolérée selon la largeur de votre jante, avec la règle spécifique aux jantes hookless. À lire en complément : <a href="/blog/compatibilite-pneu-jante-guide">pourquoi la largeur seule ne suffit pas</a>.
-  </p>
-  <p>
-    <a href="/outils/mecanique/compatibilite-cassette-derailleur">Compatibilité cassette/dérailleur</a> — vérifie le pignon maximum et la capacité totale de votre dérailleur arrière. À lire en complément : <a href="/blog/compatibilite-cassette-derailleur-guide">deux limites à ne pas confondre</a>.
-  </p>
-  <p>
-    <a href="/outils/course/pacing">Plan de puissance (pacing)</a> — calcule une puissance cible par tronçon de parcours à partir de votre FTP, avec suivi de la réserve anaérobie (W'balance). À lire en complément : <a href="/blog/plan-de-puissance-pacing-guide">pourquoi un plan de puissance n'est pas une prédiction</a>.
-  </p>
-  <p>
-    <a href="/outils/course/nutrition">Plan nutrition course</a> — repères de glucides, hydratation et sodium par heure d'effort, selon la durée, l'intensité et la chaleur prévues. À lire en complément : <a href="/blog/plan-nutrition-course-guide">des repères, pas une prescription</a>.
-  </p>
-  <p>
-    <a href="/outils/course/preparer-ma-sortie">Préparer ma sortie</a> — combine les deux outils ci-dessus en une seule fiche imprimable : le plan de puissance et le plan nutrition qui en découle, calculés en une seule saisie.
-  </p>
+  <section class="section-outils" aria-labelledby="titre-mecanique">
+    <h2 id="titre-mecanique">
+      <svg class="titre-icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5 19 7.5v9L12 20.5 5 16.5v-9z" /><circle cx="12" cy="12" r="3" /></svg>
+      Mécanique
+    </h2>
+    <div class="grille-outils">
+      {outilsMecanique.map((outil) => (
+        <a class="carte-outil" href={outil.href}>
+          <span class="carte-outil-icone" data-icone={outil.icone} aria-hidden="true">
+            {outil.icone === 'serrage' && (
+              <svg viewBox="0 0 24 24"><path d="M12 3.5 19 7.5v9L12 20.5 5 16.5v-9z" /><circle cx="12" cy="12" r="3" /></svg>
+            )}
+            {outil.icone === 'chaine' && (
+              <svg viewBox="0 0 24 24"><path d="M9 15 15 9" /><path d="M8 13a4 4 0 0 1 0-5.6l2-2a4 4 0 0 1 5.6 5.6l-1 1" /><path d="M16 11a4 4 0 0 1 0 5.6l-2 2a4 4 0 0 1-5.6-5.6l1-1" /></svg>
+            )}
+            {outil.icone === 'roue' && (
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" /><circle cx="12" cy="12" r="2.3" /><path d="M12 4v4M12 16v4M4 12h4M16 12h4M6.5 6.5l2.6 2.6M14.9 14.9l2.6 2.6M17.5 6.5l-2.6 2.6M9.1 14.9l-2.6 2.6" /></svg>
+            )}
+            {outil.icone === 'cassette' && (
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" /><circle cx="12" cy="12" r="6.2" /><circle cx="12" cy="12" r="3.4" /><circle cx="12" cy="12" r="1" /></svg>
+            )}
+          </span>
+          <h3>{outil.titre}</h3>
+          <p>{outil.description}</p>
+        </a>
+      ))}
+    </div>
+  </section>
 
-  <p>
-    Vous pouvez aussi déjà renseigner <a href="/profil">votre profil</a> et <a href="/mon-garage">votre garage</a> — ces informations préremplirons les futurs calculateurs.
-  </p>
+  <section class="section-outils" aria-labelledby="titre-course">
+    <h2 id="titre-course">
+      <svg class="titre-icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 3 5 14h6l-1 7 9-11h-6z" /></svg>
+      Course
+    </h2>
+    <div class="grille-outils">
+      <a class="carte-outil carte-outil--vedette" href={outilVedette.href}>
+        <div class="carte-outil-entete">
+          <span class="carte-outil-icone" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="17" rx="2" /><path d="M9 3.5h6a1 1 0 0 1 1 1V6H8V4.5a1 1 0 0 1 1-1z" /><path d="M8.5 12.5l2 2 4-4.5" /></svg>
+          </span>
+          <span class="carte-outil-badge">Combine les deux outils ci-dessous</span>
+        </div>
+        <h3>{outilVedette.titre}</h3>
+        <p>{outilVedette.description}</p>
+      </a>
+      {outilsCourse.map((outil) => (
+        <a class="carte-outil" href={outil.href}>
+          <span class="carte-outil-icone" aria-hidden="true">
+            {outil.icone === 'eclair' && (
+              <svg viewBox="0 0 24 24"><path d="M13 3 5 14h6l-1 7 9-11h-6z" /></svg>
+            )}
+            {outil.icone === 'goutte' && (
+              <svg viewBox="0 0 24 24"><path d="M12 3c4 5 6.5 8.2 6.5 11.2A6.5 6.5 0 1 1 5.5 14.2C5.5 11.2 8 8 12 3z" /></svg>
+            )}
+          </span>
+          <h3>{outil.titre}</h3>
+          <p>{outil.description}</p>
+        </a>
+      ))}
+    </div>
+  </section>
 
-  <h2>Contenu</h2>
-  <p>
-    Au-delà des outils, le <a href="/blog">blog</a> rassemble des articles de fond sourcés — un <a href="/blog/glossaire-performance-cycliste">glossaire des sigles de la performance</a>, des guides sur le <a href="/blog/estimer-son-ftp-guide">FTP</a>, la <a href="/blog/reserve-w-prime-guide">réserve W'</a>, la <a href="/blog/crr-cda-guide">résistance au roulement et l'aérodynamisme</a>, l'<a href="/blog/checklist-entretien-preventif">entretien préventif</a>, les <a href="/blog/route-gravel-vtt-ville-reglages">différences entre pratiques</a>, et la <a href="/blog/hydratation-nutrition-entrainement">nutrition à l'entraînement</a>. Pour savoir comment ces outils et ces articles sont construits et vérifiés, voir la page <a href="/methodologie">méthodologie</a>.
-  </p>
+  <section class="section-profil">
+    <div class="bandeau-profil">
+      <div>
+        <h2>Votre profil, votre garage</h2>
+        <p>
+          Renseignez-les une fois : FTP, poids, vélos enregistrés… ils préremplissent ensuite les
+          calculateurs ci-dessus. Tout reste stocké uniquement dans votre navigateur.
+        </p>
+      </div>
+      <div class="liens-profil">
+        <a href="/profil" class="bouton-secondaire">Mon profil</a>
+        <a href="/mon-garage" class="bouton-secondaire">Mon garage</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-contenu">
+    <h2>Contenu</h2>
+    <p>
+      Au-delà des outils, le <a href="/blog">blog</a> rassemble des articles de fond sourcés — un {' '}
+      <a href="/blog/glossaire-performance-cycliste">glossaire des sigles de la performance</a>, des guides sur le {' '}
+      <a href="/blog/estimer-son-ftp-guide">FTP</a>, la {' '}
+      <a href="/blog/reserve-w-prime-guide">réserve W'</a>, la {' '}
+      <a href="/blog/crr-cda-guide">résistance au roulement et l'aérodynamisme</a>, l'<a href="/blog/checklist-entretien-preventif">entretien préventif</a>, les {' '}
+      <a href="/blog/route-gravel-vtt-ville-reglages">différences entre pratiques</a>, et la {' '}
+      <a href="/blog/hydratation-nutrition-entrainement">nutrition à l'entraînement</a>. Pour savoir comment ces outils et ces articles sont construits et vérifiés, voir la page {' '}
+      <a href="/methodologie">méthodologie</a>.
+    </p>
+  </section>
 </BaseLayout>

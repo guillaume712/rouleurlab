@@ -136,6 +136,14 @@ const sentryDsn = import.meta.env.PUBLIC_SENTRY_DSN;
         align-items: center;
         gap: 1.25rem;
       }
+      nav a {
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.95rem;
+      }
+      nav a:hover {
+        color: var(--color-accent);
+      }
       .logo {
         color: var(--color-accent);
         font-weight: 700;
@@ -156,6 +164,165 @@ const sentryDsn = import.meta.env.PUBLIC_SENTRY_DSN;
       }
       a {
         color: var(--color-accent);
+      }
+
+      /* Accueil — hero, cartes d'outils par catégorie, bandeau profil. */
+      .hero {
+        padding: 1.5rem 0 0.5rem;
+      }
+      .hero h1 {
+        font-size: 2.25rem;
+        margin: 0 0 0.6rem;
+      }
+      .hero-intro {
+        color: var(--color-muted);
+        font-size: 1.05rem;
+        max-width: 42rem;
+        margin: 0;
+      }
+      .section-outils {
+        margin-top: 2.5rem;
+      }
+      .section-outils h2,
+      .section-profil h2,
+      .section-contenu h2 {
+        display: flex;
+        align-items: center;
+        gap: 0.55rem;
+        font-size: 1.15rem;
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+        color: var(--color-muted);
+        margin: 0 0 1rem;
+      }
+      .titre-icone {
+        width: 1.1rem;
+        height: 1.1rem;
+        color: var(--color-accent);
+      }
+      .grille-outils {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 1rem;
+      }
+      .carte-outil {
+        display: flex;
+        flex-direction: column;
+        gap: 0.6rem;
+        padding: 1.25rem;
+        background: #161a1f;
+        border: 1px solid #2e333a;
+        border-radius: 10px;
+        text-decoration: none;
+        color: var(--color-text);
+        transition: border-color 0.15s ease, transform 0.15s ease;
+      }
+      .carte-outil:hover {
+        border-color: var(--color-accent);
+        transform: translateY(-2px);
+      }
+      .carte-outil h3 {
+        margin: 0;
+        font-size: 1.05rem;
+        color: var(--color-accent);
+      }
+      .carte-outil p {
+        margin: 0;
+        color: var(--color-muted);
+        font-size: 0.88rem;
+        line-height: 1.5;
+      }
+      .carte-outil-icone {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 2.25rem;
+        height: 2.25rem;
+        border-radius: 8px;
+        background: #201a0e;
+        color: var(--color-accent);
+      }
+      .carte-outil-icone svg {
+        width: 1.2rem;
+        height: 1.2rem;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 1.6;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+      .carte-outil--vedette {
+        border-color: var(--color-accent);
+        background: linear-gradient(160deg, #201a0e, #161a1f 65%);
+      }
+      .carte-outil--vedette .carte-outil-icone {
+        background: #2a220f;
+      }
+      .carte-outil-entete {
+        display: flex;
+        align-items: center;
+        gap: 0.65rem;
+        flex-wrap: wrap;
+      }
+      .carte-outil-badge {
+        font-size: 0.7rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+        color: #14171b;
+        background: var(--color-accent);
+        padding: 0.2rem 0.55rem;
+        border-radius: 999px;
+      }
+      .section-profil {
+        margin-top: 2.5rem;
+      }
+      .bandeau-profil {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1.25rem;
+        padding: 1.25rem 1.5rem;
+        background: #161a1f;
+        border: 1px solid #2e333a;
+        border-radius: 10px;
+      }
+      .bandeau-profil h2 {
+        margin: 0 0 0.4rem;
+        text-transform: none;
+        letter-spacing: normal;
+        font-size: 1.1rem;
+        color: var(--color-text);
+      }
+      .bandeau-profil p {
+        margin: 0;
+        color: var(--color-muted);
+        font-size: 0.9rem;
+        max-width: 34rem;
+      }
+      .liens-profil {
+        display: flex;
+        gap: 0.75rem;
+        flex-shrink: 0;
+      }
+      .bouton-secondaire {
+        display: inline-block;
+        text-decoration: none;
+        color: var(--color-text);
+        border: 1px solid #2e333a;
+        border-radius: 6px;
+        padding: 0.55rem 1rem;
+        font-weight: 600;
+        font-size: 0.9rem;
+        white-space: nowrap;
+      }
+      .bouton-secondaire:hover {
+        border-color: var(--color-accent);
+        color: var(--color-accent);
+      }
+      .section-contenu {
+        margin-top: 2.5rem;
       }
 
       /* Styles de formulaire partagés (profil, garage, futurs outils). */
