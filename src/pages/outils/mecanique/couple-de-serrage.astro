@@ -1,5 +1,6 @@
 ---
 import OutilLayout from '@/layouts/OutilLayout.astro';
+import Icone from '@/components/Icone.astro';
 import CoupleDeSerrage from '@/components/outils/CoupleDeSerrage';
 import { SOURCE_COUPLE_SERRAGE } from '@/lib/calculs/coupleSerrage';
 ---
@@ -9,7 +10,10 @@ import { SOURCE_COUPLE_SERRAGE } from '@/lib/calculs/coupleSerrage';
   description="Table de référence des couples de serrage courants en cyclisme (potence, cassette, disque, pédalier...) en newton-mètres, sourcée et avec ses limites clairement indiquées."
   filAriane={[{ label: 'Accueil', href: '/' }, { label: 'Couple de serrage' }]}
 >
-  <h1>Couple de serrage vélo</h1>
+  <div class="entete-outil">
+    <span class="carte-outil-icone" aria-hidden="true"><Icone nom="serrage" /></span>
+    <h1>Couple de serrage vélo</h1>
+  </div>
   <p>
     Table de référence des couples de serrage les plus courants sur un vélo, en newton-mètres
     (N·m). Cherchez un composant ci-dessous.

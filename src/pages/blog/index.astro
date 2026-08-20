@@ -16,39 +16,21 @@ const articles = (await getCollection('blog')).sort(
   <h1>Blog</h1>
   <p>Des articles sourcés, chacun avec ses références et ses limites — pas de conseils sortis de nulle part.</p>
 
-  <ul class="liste-articles">
+  <div class="grille-articles">
     {
       articles.map((article) => (
-        <li>
-          <a href={`/blog/${article.id}`}>{article.data.title}</a>
-          <p class="aide">
+        <a class="carte-article" href={`/blog/${article.id}`}>
+          <p class="carte-article-date">
             {article.data.datePublication.toLocaleDateString('fr-FR', {
               day: 'numeric',
               month: 'long',
               year: 'numeric',
             })}
           </p>
+          <h3>{article.data.title}</h3>
           <p>{article.data.description}</p>
-        </li>
+        </a>
       ))
     }
-  </ul>
-
-  <style>
-    .liste-articles {
-      list-style: none;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-    }
-    .liste-articles li {
-      padding-bottom: 1.5rem;
-      border-bottom: 1px solid #24282e;
-    }
-    .liste-articles a {
-      font-size: 1.1rem;
-      font-weight: 700;
-    }
-  </style>
+  </div>
 </BaseLayout>

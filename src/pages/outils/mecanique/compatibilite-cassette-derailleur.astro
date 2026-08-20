@@ -1,5 +1,6 @@
 ---
 import OutilLayout from '@/layouts/OutilLayout.astro';
+import Icone from '@/components/Icone.astro';
 import CompatibiliteCassetteDerailleur from '@/components/outils/CompatibiliteCassetteDerailleur';
 import { SOURCE_FORMULE_CAPACITE } from '@/lib/calculs/donnees/derailleurs';
 ---
@@ -9,7 +10,10 @@ import { SOURCE_FORMULE_CAPACITE } from '@/lib/calculs/donnees/derailleurs';
   description="Vérifiez si votre cassette est compatible avec votre dérailleur arrière : pignon maximum supporté et capacité totale de la chape."
   filAriane={[{ label: 'Accueil', href: '/' }, { label: 'Compatibilité cassette/dérailleur' }]}
 >
-  <h1>Compatibilité cassette / dérailleur</h1>
+  <div class="entete-outil">
+    <span class="carte-outil-icone" aria-hidden="true"><Icone nom="cassette" /></span>
+    <h1>Compatibilité cassette / dérailleur</h1>
+  </div>
   <p>
     Vérifie deux limites indépendantes de votre dérailleur arrière : le plus grand pignon qu'il
     supporte, et la capacité totale de sa chape (l'écart plateaux + l'écart cassette qu'il peut

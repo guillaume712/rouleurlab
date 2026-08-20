@@ -325,6 +325,46 @@ const sentryDsn = import.meta.env.PUBLIC_SENTRY_DSN;
         margin-top: 2.5rem;
       }
 
+      /* Blog — grille de cartes (même langage visuel que les cartes d'outils). */
+      .grille-articles {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 1rem;
+        margin-top: 1.5rem;
+      }
+      .carte-article {
+        display: flex;
+        flex-direction: column;
+        gap: 0.45rem;
+        padding: 1.25rem;
+        background: #161a1f;
+        border: 1px solid #2e333a;
+        border-radius: 10px;
+        text-decoration: none;
+        color: var(--color-text);
+        transition: border-color 0.15s ease, transform 0.15s ease;
+      }
+      .carte-article:hover {
+        border-color: var(--color-accent);
+        transform: translateY(-2px);
+      }
+      .carte-article h3 {
+        margin: 0;
+        font-size: 1.05rem;
+        color: var(--color-accent);
+      }
+      .carte-article p {
+        margin: 0;
+        color: var(--color-muted);
+        font-size: 0.88rem;
+        line-height: 1.5;
+      }
+      .carte-article-date {
+        font-size: 0.78rem !important;
+        text-transform: uppercase;
+        letter-spacing: 0.02em;
+      }
+
       /* Styles de formulaire partagés (profil, garage, futurs outils). */
       form {
         display: flex;
@@ -414,6 +454,15 @@ const sentryDsn = import.meta.env.PUBLIC_SENTRY_DSN;
       }
 
       /* Styles partagés des pages outil (tableaux de référence, avertissements). */
+      .entete-outil {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 1rem;
+      }
+      .entete-outil h1 {
+        margin: 0;
+      }
       .avertissement {
         border: 1px solid #7a5a1a;
         background: #201a0e;

@@ -1,0 +1,75 @@
+---
+// Pictogrammes partagés — utilisés sur les cartes de l'accueil (Étape 9,
+// retour utilisateur 20/08/2026) et repris sur l'en-tête de chaque page
+// outil pour la cohérence visuelle (reconnaissance rapide de l'outil quand
+// on arrive dessus directement depuis un moteur de recherche ou un forum).
+// Un seul jeu d'icônes défini ici, référencé par nom : pas de duplication du
+// SVG entre l'accueil et les pages outils.
+interface Props {
+  nom: 'serrage' | 'chaine' | 'roue' | 'cassette' | 'eclair' | 'goutte' | 'fiche';
+}
+
+const { nom } = Astro.props;
+---
+
+{
+  nom === 'serrage' && (
+    <svg viewBox="0 0 24 24">
+      <path d="M12 3.5 19 7.5v9L12 20.5 5 16.5v-9z" />
+      <circle cx="12" cy="12" r="3" />
+    </svg>
+  )
+}
+{
+  nom === 'chaine' && (
+    <svg viewBox="0 0 24 24">
+      <rect x="1" y="9" width="8" height="6" rx="3" />
+      <rect x="8" y="9" width="8" height="6" rx="3" />
+      <rect x="15" y="9" width="8" height="6" rx="3" />
+      <circle cx="8.5" cy="12" r="0.9" fill="currentColor" stroke="none" />
+      <circle cx="15.5" cy="12" r="0.9" fill="currentColor" stroke="none" />
+    </svg>
+  )
+}
+{
+  nom === 'roue' && (
+    <svg viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="9.3" stroke-width="2.2" />
+      <circle cx="12" cy="12" r="6.8" />
+      <circle cx="12" cy="12" r="1.5" />
+      <path d="M12 5.2v5.3M12 13.5v5.3M5.2 12h5.3M13.5 12h5.3" />
+    </svg>
+  )
+}
+{
+  nom === 'cassette' && (
+    <svg viewBox="0 0 24 24">
+      <circle cx="8" cy="15.5" r="4.4" />
+      <circle cx="12.2" cy="10.6" r="3.3" />
+      <circle cx="15.5" cy="6.8" r="2.3" />
+    </svg>
+  )
+}
+{
+  nom === 'eclair' && (
+    <svg viewBox="0 0 24 24">
+      <path d="M13 3 5 14h6l-1 7 9-11h-6z" />
+    </svg>
+  )
+}
+{
+  nom === 'goutte' && (
+    <svg viewBox="0 0 24 24">
+      <path d="M12 3c4 5 6.5 8.2 6.5 11.2A6.5 6.5 0 1 1 5.5 14.2C5.5 11.2 8 8 12 3z" />
+    </svg>
+  )
+}
+{
+  nom === 'fiche' && (
+    <svg viewBox="0 0 24 24">
+      <rect x="5" y="4" width="14" height="17" rx="2" />
+      <path d="M9 3.5h6a1 1 0 0 1 1 1V6H8V4.5a1 1 0 0 1 1-1z" />
+      <path d="M8.5 12.5l2 2 4-4.5" />
+    </svg>
+  )
+}

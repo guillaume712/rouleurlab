@@ -1,5 +1,14 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Icone from '@/components/Icone.astro';
+
+type NomIcone = 'serrage' | 'chaine' | 'roue' | 'cassette' | 'eclair' | 'goutte' | 'fiche';
+interface EntreeOutil {
+  href: string;
+  titre: string;
+  description: string;
+  icone: NomIcone;
+}
 
 // Accueil — refonte visuelle (retour utilisateur 20/08/2026) : la version
 // précédente était une simple liste de liens soulignés, tous de même poids
@@ -16,7 +25,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 // factuellement exacte (pas de chiffre inventé, pas de fonctionnalité prêtée
 // à l'outil qu'il n'a pas — ex. le pacing est un plan calculé à l'avance,
 // pas un suivi en temps réel pendant l'effort).
-const outilsMecanique = [
+const outilsMecanique: EntreeOutil[] = [
   {
     href: '/outils/mecanique/couple-de-serrage',
     titre: 'Couple de serrage vélo',
@@ -43,7 +52,7 @@ const outilsMecanique = [
   },
 ];
 
-const outilsCourse = [
+const outilsCourse: EntreeOutil[] = [
   {
     href: '/outils/course/pacing',
     titre: 'Plan de puissance',
@@ -86,34 +95,8 @@ const outilVedette = {
     <div class="grille-outils">
       {outilsMecanique.map((outil) => (
         <a class="carte-outil" href={outil.href}>
-          <span class="carte-outil-icone" data-icone={outil.icone} aria-hidden="true">
-            {outil.icone === 'serrage' && (
-              <svg viewBox="0 0 24 24"><path d="M12 3.5 19 7.5v9L12 20.5 5 16.5v-9z" /><circle cx="12" cy="12" r="3" /></svg>
-            )}
-            {outil.icone === 'chaine' && (
-              <svg viewBox="0 0 24 24">
-                <rect x="1" y="9" width="8" height="6" rx="3" />
-                <rect x="8" y="9" width="8" height="6" rx="3" />
-                <rect x="15" y="9" width="8" height="6" rx="3" />
-                <circle cx="8.5" cy="12" r="0.9" fill="currentColor" stroke="none" />
-                <circle cx="15.5" cy="12" r="0.9" fill="currentColor" stroke="none" />
-              </svg>
-            )}
-            {outil.icone === 'roue' && (
-              <svg viewBox="0 0 24 24">
-                <circle cx="12" cy="12" r="9.3" stroke-width="2.2" />
-                <circle cx="12" cy="12" r="6.8" />
-                <circle cx="12" cy="12" r="1.5" />
-                <path d="M12 5.2v5.3M12 13.5v5.3M5.2 12h5.3M13.5 12h5.3" />
-              </svg>
-            )}
-            {outil.icone === 'cassette' && (
-              <svg viewBox="0 0 24 24">
-                <circle cx="8" cy="15.5" r="4.4" />
-                <circle cx="12.2" cy="10.6" r="3.3" />
-                <circle cx="15.5" cy="6.8" r="2.3" />
-              </svg>
-            )}
+          <span class="carte-outil-icone" aria-hidden="true">
+            <Icone nom={outil.icone} />
           </span>
           <h3>{outil.titre}</h3>
           <p>{outil.description}</p>
@@ -131,7 +114,7 @@ const outilVedette = {
       <a class="carte-outil carte-outil--vedette" href={outilVedette.href}>
         <div class="carte-outil-entete">
           <span class="carte-outil-icone" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="17" rx="2" /><path d="M9 3.5h6a1 1 0 0 1 1 1V6H8V4.5a1 1 0 0 1 1-1z" /><path d="M8.5 12.5l2 2 4-4.5" /></svg>
+            <Icone nom="fiche" />
           </span>
           <span class="carte-outil-badge">Combine les deux outils ci-dessous</span>
         </div>
@@ -141,12 +124,7 @@ const outilVedette = {
       {outilsCourse.map((outil) => (
         <a class="carte-outil" href={outil.href}>
           <span class="carte-outil-icone" aria-hidden="true">
-            {outil.icone === 'eclair' && (
-              <svg viewBox="0 0 24 24"><path d="M13 3 5 14h6l-1 7 9-11h-6z" /></svg>
-            )}
-            {outil.icone === 'goutte' && (
-              <svg viewBox="0 0 24 24"><path d="M12 3c4 5 6.5 8.2 6.5 11.2A6.5 6.5 0 1 1 5.5 14.2C5.5 11.2 8 8 12 3z" /></svg>
-            )}
+            <Icone nom={outil.icone} />
           </span>
           <h3>{outil.titre}</h3>
           <p>{outil.description}</p>

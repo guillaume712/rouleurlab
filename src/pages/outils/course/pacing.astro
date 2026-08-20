@@ -1,5 +1,6 @@
 ---
 import OutilLayout from '@/layouts/OutilLayout.astro';
+import Icone from '@/components/Icone.astro';
 import PacingCalculateur from '@/components/outils/PacingCalculateur';
 ---
 
@@ -8,7 +9,10 @@ import PacingCalculateur from '@/components/outils/PacingCalculateur';
   description="Calcule un plan de puissance segment par segment à partir de votre FTP et du profil du parcours, avec suivi de la réserve anaérobie (W'balance)."
   filAriane={[{ label: 'Accueil', href: '/' }, { label: 'Plan de puissance' }]}
 >
-  <h1>Plan de puissance (pacing)</h1>
+  <div class="entete-outil">
+    <span class="carte-outil-icone" aria-hidden="true"><Icone nom="eclair" /></span>
+    <h1>Plan de puissance (pacing)</h1>
+  </div>
   <p>
     Découpez votre parcours en tronçons (distance et pente moyenne), et l'outil calcule une
     puissance cible par tronçon : une puissance constante de base, modulée à la hausse dans les

@@ -1,5 +1,6 @@
 ---
 import OutilLayout from '@/layouts/OutilLayout.astro';
+import Icone from '@/components/Icone.astro';
 import LongueurChaine from '@/components/outils/LongueurChaine';
 import { SOURCE_LONGUEUR_CHAINE } from '@/lib/calculs/longueurChaine';
 ---
@@ -9,7 +10,10 @@ import { SOURCE_LONGUEUR_CHAINE } from '@/lib/calculs/longueurChaine';
   description="Calculez le nombre de maillons de chaîne nécessaire à partir de la longueur de vos bases, de vos plateaux et de votre cassette. Pré-remplissage depuis votre garage."
   filAriane={[{ label: 'Accueil', href: '/' }, { label: 'Longueur de chaîne' }]}
 >
-  <h1>Longueur de chaîne</h1>
+  <div class="entete-outil">
+    <span class="carte-outil-icone" aria-hidden="true"><Icone nom="chaine" /></span>
+    <h1>Longueur de chaîne</h1>
+  </div>
   <p>
     Calcule le nombre de maillons nécessaire à partir de la longueur de vos bases (hauban), de vos
     plateaux et du plus grand pignon de votre cassette.
