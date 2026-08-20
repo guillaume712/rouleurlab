@@ -1,8 +1,6 @@
-# TEMPORAIRE : site hébergé sur le sous-domaine gratuit rouleurlab.pages.dev
-# en attendant l'achat du domaine réel. On bloque tout crawl tant que le
-# domaine définitif n'est pas en place, pour ne pas faire indexer une URL
-# provisoire (voir BaseLayout.astro pour le détail).
-# À RESTAURER à l'Étape 9/11 (lancement) : Allow: /, Disallow: /profil et
-# /mon-garage, Sitemap pointant vers https://rouleurlab.fr/sitemap-index.xml
 User-agent: *
-Disallow: /
+Allow: /
+Disallow: /profil
+Disallow: /mon-garage
+
+Sitemap: https://rouleurlab.fr/sitemap-index.xml
