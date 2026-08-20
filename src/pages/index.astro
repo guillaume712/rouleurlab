@@ -10,29 +10,35 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 // deux outils course en une fiche). Palette et thème inchangés (sombre +
 // accent orange) — seule la hiérarchie et la mise en page évoluent.
 
+// Descriptions homepage volontairement plus incitatives que sur les pages
+// outils elles-mêmes (registre neutre/sourcé conservé là-bas) — convention
+// classique page d'accueil vs. page de destination. Chaque accroche reste
+// factuellement exacte (pas de chiffre inventé, pas de fonctionnalité prêtée
+// à l'outil qu'il n'a pas — ex. le pacing est un plan calculé à l'avance,
+// pas un suivi en temps réel pendant l'effort).
 const outilsMecanique = [
   {
     href: '/outils/mecanique/couple-de-serrage',
     titre: 'Couple de serrage vélo',
-    description: 'Table de référence des couples courants (potence, cassette, disque, pédalier…), sources et limites incluses.',
+    description: 'Ne serrez plus au pif : les valeurs de couple pour chaque pièce clé (potence, cassette, disque, pédalier…), sourcées et avec leurs limites d’usage.',
     icone: 'serrage',
   },
   {
     href: '/outils/mecanique/longueur-chaine',
     titre: 'Longueur de chaîne',
-    description: 'Nombre de maillons à partir de vos bases, plateaux et cassette — pré-rempli depuis votre garage.',
+    description: 'Le bon nombre de maillons sans y passer la soirée, à partir de vos bases, plateaux et cassette — pré-rempli automatiquement si votre vélo est dans le garage.',
     icone: 'chaine',
   },
   {
     href: '/outils/mecanique/compatibilite-pneu-jante',
     titre: 'Compatibilité pneu/jante',
-    description: 'Plage recommandée et plage tolérée (ETRTO) selon la largeur de jante, règle hookless comprise.',
+    description: 'Évitez la mauvaise surprise pneu/jante : plage recommandée et plage tolérée (ETRTO) selon votre jante, règle hookless comprise.',
     icone: 'roue',
   },
   {
     href: '/outils/mecanique/compatibilite-cassette-derailleur',
     titre: 'Cassette / dérailleur',
-    description: 'Vérifie le pignon maximum et la capacité totale de votre dérailleur arrière.',
+    description: 'Avant de monter une cassette plus large, vérifiez que votre dérailleur suit : pignon maximum et capacité totale calculés pour votre config.',
     icone: 'cassette',
   },
 ];
@@ -41,21 +47,21 @@ const outilsCourse = [
   {
     href: '/outils/course/pacing',
     titre: 'Plan de puissance',
-    description: "Puissance cible par tronçon à partir de votre FTP, avec suivi de la réserve anaérobie (W'balance).",
+    description: "Ne cramez pas vos jambes trop tôt : une puissance cible par tronçon de votre parcours, calculée depuis votre FTP, avec suivi de votre réserve anaérobie (W'balance).",
     icone: 'eclair',
   },
   {
     href: '/outils/course/nutrition',
     titre: 'Plan nutrition course',
-    description: 'Repères de glucides, hydratation et sodium par heure d’effort selon durée, intensité et chaleur.',
+    description: 'Anticipez la fringale avant qu’elle n’arrive : vos repères de glucides, hydratation et sodium par heure d’effort, ajustés à la durée, l’intensité et la chaleur prévues.',
     icone: 'goutte',
   },
 ];
 
 const outilVedette = {
   href: '/outils/course/preparer-ma-sortie',
-  titre: 'Préparer ma sortie',
-  description: 'Combine pacing et nutrition en une seule fiche imprimable, calculée en une seule saisie.',
+  titre: 'Préparer ma sortie ou ma course',
+  description: 'Un seul formulaire, une fiche prête pour la route : votre plan de puissance et votre plan nutrition combinés, calculés en une seule saisie.',
   icone: 'fiche',
 };
 ---
