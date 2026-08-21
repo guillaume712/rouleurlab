@@ -541,6 +541,10 @@ const sentryDsn = import.meta.env.PUBLIC_SENTRY_DSN;
         stroke-width: 1.5;
         stroke-linejoin: round;
       }
+      .schema-jante-canal {
+        fill: #161a1f;
+        stroke: none;
+      }
       .schema-jante-pneu {
         fill: #24272d;
         stroke: #3d424a;
@@ -571,6 +575,25 @@ const sentryDsn = import.meta.env.PUBLIC_SENTRY_DSN;
         fill: var(--color-accent);
         font-size: 9px;
         font-weight: 700;
+      }
+      .schema-jante-attache-externe {
+        stroke: var(--color-muted);
+        stroke-width: 1;
+        stroke-dasharray: 2 2;
+        opacity: 0.45;
+      }
+      .schema-jante-cote-externe {
+        stroke: var(--color-muted);
+        stroke-width: 1.25;
+      }
+      .schema-jante-fleche-externe {
+        fill: var(--color-muted);
+        stroke: none;
+      }
+      .schema-jante-label-externe {
+        fill: var(--color-muted);
+        font-size: 8px;
+        font-weight: 600;
       }
       .schema-jante-titre {
         fill: var(--color-text);
