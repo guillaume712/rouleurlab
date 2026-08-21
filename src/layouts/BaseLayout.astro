@@ -520,6 +520,60 @@ const sentryDsn = import.meta.env.PUBLIC_SENTRY_DSN;
         margin-top: 0.25rem;
       }
 
+      /* Schéma pédagogique coupe de jante (compatibilité pneu/jante). */
+      .schema-jante {
+        margin: 1rem 0 1.25rem;
+        padding: 0.75rem 1rem 1rem;
+        background: #161a1f;
+        border: 1px solid #2e333a;
+        border-radius: 8px;
+        text-align: center;
+      }
+      .schema-jante svg {
+        width: 100%;
+        max-width: 260px;
+        height: auto;
+        font-family: inherit;
+      }
+      .schema-jante-trait {
+        fill: none;
+        stroke: var(--color-text);
+        stroke-width: 3;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+      .schema-jante-embout {
+        fill: var(--color-text);
+        stroke: none;
+      }
+      .schema-jante-cote {
+        stroke: var(--color-accent);
+        stroke-width: 1.5;
+      }
+      .schema-jante-fleche {
+        fill: var(--color-accent);
+        stroke: none;
+      }
+      .schema-jante-label {
+        fill: var(--color-accent);
+        font-size: 9px;
+        font-weight: 700;
+      }
+      .schema-jante-titre {
+        fill: var(--color-text);
+        font-size: 10.5px;
+        font-weight: 700;
+      }
+      .schema-jante-sous-titre {
+        fill: var(--color-muted);
+        font-size: 7.5px;
+      }
+      .schema-jante figcaption {
+        margin: 0.5rem 0 0;
+        color: var(--color-muted);
+        font-size: 0.78rem;
+      }
+
       /* Résultat d'un calculateur (longueur de chaîne, et outils suivants). */
       .resultat {
         margin-top: 1.5rem;
