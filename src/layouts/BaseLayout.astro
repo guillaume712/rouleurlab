@@ -531,20 +531,33 @@ const sentryDsn = import.meta.env.PUBLIC_SENTRY_DSN;
       }
       .schema-jante svg {
         width: 100%;
-        max-width: 260px;
+        max-width: 280px;
         height: auto;
         font-family: inherit;
       }
-      .schema-jante-trait {
-        fill: none;
-        stroke: var(--color-text);
-        stroke-width: 3;
-        stroke-linecap: round;
+      .schema-jante-rim {
+        fill: #9aa0aa;
+        stroke: #5c626b;
+        stroke-width: 1.5;
         stroke-linejoin: round;
       }
-      .schema-jante-embout {
-        fill: var(--color-text);
-        stroke: none;
+      .schema-jante-pneu {
+        fill: #24272d;
+        stroke: #3d424a;
+        stroke-width: 1.5;
+        stroke-linejoin: round;
+      }
+      .schema-jante-pneu-reflet {
+        fill: none;
+        stroke: #4a5058;
+        stroke-width: 2;
+        stroke-linecap: round;
+      }
+      .schema-jante-attache {
+        stroke: var(--color-muted);
+        stroke-width: 1;
+        stroke-dasharray: 2 2;
+        opacity: 0.6;
       }
       .schema-jante-cote {
         stroke: var(--color-accent);
@@ -561,12 +574,8 @@ const sentryDsn = import.meta.env.PUBLIC_SENTRY_DSN;
       }
       .schema-jante-titre {
         fill: var(--color-text);
-        font-size: 10.5px;
+        font-size: 11px;
         font-weight: 700;
-      }
-      .schema-jante-sous-titre {
-        fill: var(--color-muted);
-        font-size: 7.5px;
       }
       .schema-jante figcaption {
         margin: 0.5rem 0 0;
