@@ -122,11 +122,16 @@ export interface OptionCda {
   cda: number;
 }
 
+// Les libellés décrivent la position sur le vélo, pas la discipline : la
+// même posture (ex. mains sur les cocottes) donne le même CdA qu'on soit sur
+// un vélo de route ou un gravel équipé d'un cintre similaire — la clé
+// `cle` ne sert qu'à la présélection depuis le type de pratique, pas à
+// affirmer qu'une position serait réservée à une discipline.
 export const OPTIONS_CDA: OptionCda[] = [
-  { cle: 'route', libelle: 'Position route, mains sur les cocottes (CdA 0,32 m²)', cda: DEFAUTS_VELO_PAR_PRATIQUE.route.cda },
-  { cle: 'gravel', libelle: 'Position gravel, intermédiaire (CdA 0,35 m² — estimation)', cda: DEFAUTS_VELO_PAR_PRATIQUE.gravel.cda },
-  { cle: 'vtt', libelle: 'Position VTT, cintre large (CdA 0,40 m² — estimation)', cda: DEFAUTS_VELO_PAR_PRATIQUE.vtt.cda },
-  { cle: 'ville', libelle: 'Position ville, dos droit (CdA 0,45 m²)', cda: DEFAUTS_VELO_PAR_PRATIQUE.ville.cda },
+  { cle: 'route', libelle: 'Position aéro, mains sur les cocottes (CdA 0,32 m²)', cda: DEFAUTS_VELO_PAR_PRATIQUE.route.cda },
+  { cle: 'gravel', libelle: 'Position intermédiaire, buste légèrement penché (CdA 0,35 m² — estimation)', cda: DEFAUTS_VELO_PAR_PRATIQUE.gravel.cda },
+  { cle: 'vtt', libelle: 'Position redressée, cintre large (CdA 0,40 m² — estimation)', cda: DEFAUTS_VELO_PAR_PRATIQUE.vtt.cda },
+  { cle: 'ville', libelle: 'Position droite, dos vertical (CdA 0,45 m²)', cda: DEFAUTS_VELO_PAR_PRATIQUE.ville.cda },
 ];
 
 /** Rendement de transmission et facteur d'inertie des roues — mêmes valeurs
