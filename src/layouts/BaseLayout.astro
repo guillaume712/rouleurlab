@@ -71,10 +71,12 @@ const sentryDsn = import.meta.env.PUBLIC_SENTRY_DSN;
     <header class="site-header">
       <nav>
         <a href="/" class="logo">RouleurLab</a>
-        <a href="/profil">Mon profil</a>
-        <a href="/mon-garage">Mon garage</a>
-        <a href="/blog">Blog</a>
-        <a href="/methodologie">Méthodologie</a>
+        <div class="nav-liens">
+          <a href="/profil">Mon profil</a>
+          <a href="/mon-garage">Mon garage</a>
+          <a href="/blog">Blog</a>
+          <a href="/methodologie">Méthodologie</a>
+        </div>
       </nav>
     </header>
     <main>
@@ -168,7 +170,14 @@ const sentryDsn = import.meta.env.PUBLIC_SENTRY_DSN;
       nav {
         display: flex;
         align-items: center;
+        justify-content: space-between;
         gap: 1.25rem;
+      }
+      .nav-liens {
+        display: flex;
+        align-items: center;
+        gap: 1.25rem;
+        flex-wrap: wrap;
       }
       nav a {
         text-decoration: none;
