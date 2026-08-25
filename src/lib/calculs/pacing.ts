@@ -97,18 +97,55 @@ export const DEFAUTS_VELO_PAR_PRATIQUE: Record<TypePratique, Pick<Bike, 'mass_kg
   ville: { mass_kg: 14.0, cda: 0.45, crr: 0.007 },
 };
 
+/** Listes déroulantes Crr / CdA, exposées indépendamment du type de pratique
+ *  dans le formulaire — même jeu de valeurs que DEFAUTS_VELO_PAR_PRATIQUE
+ *  ci-dessus (mêmes sources), mais sélectionnables librement pour couvrir un
+ *  vélo « hybride » (ex. gravel chaussé de pneus lisses route). Le type de
+ *  pratique choisi présélectionne l'entrée correspondante, modifiable
+ *  ensuite indépendamment. */
+export interface OptionCrr {
+  cle: TypePratique;
+  libelle: string;
+  crr: number;
+}
+
+export const OPTIONS_CRR: OptionCrr[] = [
+  { cle: 'route', libelle: 'Pneu route lisse sur asphalte (Crr 0,005)', crr: DEFAUTS_VELO_PAR_PRATIQUE.route.crr },
+  { cle: 'ville', libelle: 'Revêtement urbain irrégulier (Crr 0,007 — estimation)', crr: DEFAUTS_VELO_PAR_PRATIQUE.ville.crr },
+  { cle: 'gravel', libelle: 'Gravier roulant (Crr 0,010 — estimation)', crr: DEFAUTS_VELO_PAR_PRATIQUE.gravel.crr },
+  { cle: 'vtt', libelle: 'Piste VTT très dégradée (Crr 0,020)', crr: DEFAUTS_VELO_PAR_PRATIQUE.vtt.crr },
+];
+
+export interface OptionCda {
+  cle: TypePratique;
+  libelle: string;
+  cda: number;
+}
+
+export const OPTIONS_CDA: OptionCda[] = [
+  { cle: 'route', libelle: 'Position route, mains sur les cocottes (CdA 0,32 m²)', cda: DEFAUTS_VELO_PAR_PRATIQUE.route.cda },
+  { cle: 'gravel', libelle: 'Position gravel, intermédiaire (CdA 0,35 m² — estimation)', cda: DEFAUTS_VELO_PAR_PRATIQUE.gravel.cda },
+  { cle: 'vtt', libelle: 'Position VTT, cintre large (CdA 0,40 m² — estimation)', cda: DEFAUTS_VELO_PAR_PRATIQUE.vtt.cda },
+  { cle: 'ville', libelle: 'Position ville, dos droit (CdA 0,45 m²)', cda: DEFAUTS_VELO_PAR_PRATIQUE.ville.cda },
+];
+
 /** Rendement de transmission et facteur d'inertie des roues — mêmes valeurs
  *  par défaut que Bike() dans models.py, considérées comme constantes
  *  physiques peu variables entre types de pratique (non retunées ici). */
 const DRIVETRAIN_EFF = 0.976;
 const WHEEL_INERTIA_FACTOR = 1.01;
 
-export function construireVelo(typePratique: TypePratique, masseVeloKgPersonnalisee?: number): Bike {
+export function construireVelo(
+  typePratique: TypePratique,
+  masseVeloKgPersonnalisee?: number,
+  crrChoisi?: number,
+  cdaChoisi?: number,
+): Bike {
   const defauts = DEFAUTS_VELO_PAR_PRATIQUE[typePratique];
   return {
     mass_kg: masseVeloKgPersonnalisee ?? defauts.mass_kg,
-    cda: defauts.cda,
-    crr: defauts.crr,
+    cda: cdaChoisi ?? defauts.cda,
+    crr: crrChoisi ?? defauts.crr,
     drivetrain_eff: DRIVETRAIN_EFF,
     wheel_inertia_factor: WHEEL_INERTIA_FACTOR,
   };
@@ -256,6 +293,10 @@ export interface EntreesPacing {
   w_prime_j?: number;
   /** Masse du vélo en kg. Optionnel : valeur par défaut du type de pratique. */
   masse_velo_kg?: number;
+  /** Crr choisi dans la liste OPTIONS_CRR. Optionnel : valeur par défaut du type de pratique. */
+  crr_choisi?: number;
+  /** CdA choisi dans la liste OPTIONS_CDA (m²). Optionnel : valeur par défaut du type de pratique. */
+  cda_choisi?: number;
   temperature_c?: number;
   altitude_m?: number;
   /** Vent, en m/s : positif = de face, négatif = dans le dos. */
@@ -379,7 +420,7 @@ export function calculerPlanPacing(entrees: EntreesPacing): ResultatPacing {
     cp_w: null,
     w_prime_j: entrees.w_prime_j ?? W_PRIME_PAR_DEFAUT_J,
   };
-  const bike = construireVelo(entrees.type_pratique, entrees.masse_velo_kg);
+  const bike = construireVelo(entrees.type_pratique, entrees.masse_velo_kg, entrees.crr_choisi, entrees.cda_choisi);
   const env = construireEnvironnement(entrees);
   const segments = construireSegments(entrees.segments);
   const constraints = CONTRAINTES_PAR_DEFAUT;

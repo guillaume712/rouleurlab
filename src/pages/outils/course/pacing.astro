@@ -47,12 +47,13 @@ import PacingCalculateur from '@/components/outils/PacingCalculateur';
       l'auteur (VéloPace), déjà utilisé et vérifié indépendamment.
     </p>
     <p>
-      Paramètres vélo par défaut (résistance au roulement Crr, traînée aérodynamique CdA) : voir le
-      détail et les sources (Best Bike Split, AeroX, Velodrome.shop, tests Chung Method de John
-      Karrasch) dans le code source — certaines valeurs par type de pratique (gravel, VTT, ville)
-      sont des estimations interpolées entre des points de repère mesurés, faute de mesure directe
-      trouvée pour ces catégories ; éditez la masse du vélo dans les options avancées si vous
-      connaissez la vôtre.
+      Résistance au roulement (Crr) et traînée aérodynamique (CdA) : choisies dans deux listes
+      indépendantes (pas figées par le type de pratique, pour couvrir par exemple un gravel chaussé
+      de pneus lisses route). Sources des valeurs proposées : Best Bike Split, AeroX, Velodrome.shop,
+      tests Chung Method de John Karrasch — voir le détail dans le code source. Certaines valeurs
+      (gravel, VTT, ville) sont des estimations interpolées entre des points de repère mesurés, faute
+      de mesure directe trouvée pour ces catégories ; éditez la masse du vélo dans les options
+      avancées si vous connaissez la vôtre.
     </p>
     <p>
       Limites : le modèle de fatigue/durabilité (décroissance de la puissance soutenable sur les

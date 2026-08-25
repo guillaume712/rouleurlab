@@ -3,6 +3,8 @@ import type { TypePratique, Velo } from '@/types';
 import { getProfil, getVelos } from '@/lib/storage/profilLocal';
 import {
   DEFAUTS_VELO_PAR_PRATIQUE,
+  OPTIONS_CDA,
+  OPTIONS_CRR,
   W_PRIME_PAR_DEFAUT_J,
   calculerPlanPacing,
   validerEntreesPacing,
@@ -34,6 +36,8 @@ export default function PacingCalculateur() {
   const [ftpW, setFtpW] = useState<number | ''>('');
   const [typePratique, setTypePratique] = useState<TypePratique>('route');
   const [masseVeloKg, setMasseVeloKg] = useState<number | ''>('');
+  const [crrChoisi, setCrrChoisi] = useState<number>(OPTIONS_CRR.find((o) => o.cle === 'route')!.crr);
+  const [cdaChoisi, setCdaChoisi] = useState<number>(OPTIONS_CDA.find((o) => o.cle === 'route')!.cda);
   const [wPrimeJ, setWPrimeJ] = useState<number>(W_PRIME_PAR_DEFAUT_J);
   const [temperatureC, setTemperatureC] = useState(20);
   const [altitudeM, setAltitudeM] = useState(0);
@@ -51,6 +55,14 @@ export default function PacingCalculateur() {
     if (profil.ftp_w !== null) setFtpW(profil.ftp_w);
     setVelos(getVelos());
   }, []);
+
+  /** Change le type de pratique et présélectionne le Crr / CdA correspondant
+   *  (modifiables ensuite indépendamment ci-dessous). */
+  function appliquerTypePratique(tp: TypePratique) {
+    setTypePratique(tp);
+    setCrrChoisi(OPTIONS_CRR.find((o) => o.cle === tp)?.crr ?? DEFAUTS_VELO_PAR_PRATIQUE[tp].crr);
+    setCdaChoisi(OPTIONS_CDA.find((o) => o.cle === tp)?.cda ?? DEFAUTS_VELO_PAR_PRATIQUE[tp].cda);
+  }
 
   function gererFichierGpx(e: React.ChangeEvent<HTMLInputElement>) {
     const fichier = e.target.files?.[0];
@@ -89,6 +101,8 @@ export default function PacingCalculateur() {
       ftp_w: ftpW === '' ? undefined : ftpW,
       type_pratique: typePratique,
       masse_velo_kg: masseVeloKg === '' ? undefined : masseVeloKg,
+      crr_choisi: crrChoisi,
+      cda_choisi: cdaChoisi,
       w_prime_j: wPrimeJ,
       temperature_c: temperatureC,
       altitude_m: altitudeM,
@@ -115,7 +129,7 @@ export default function PacingCalculateur() {
             value=""
             onChange={(e) => {
               const velo = velos.find((v) => v.id === e.target.value);
-              if (velo) setTypePratique(velo.type_pratique);
+              if (velo) appliquerTypePratique(velo.type_pratique);
             }}
           >
             <option value="">— Choisir un type de pratique manuellement ci-dessous —</option>
@@ -163,21 +177,47 @@ export default function PacingCalculateur() {
         </div>
 
         <div className="champ">
-          <label htmlFor="type-pratique">Type de pratique (paramètres vélo par défaut)</label>
+          <label htmlFor="type-pratique">Type de pratique (masse du vélo, présélection Crr/CdA)</label>
           <select
             id="type-pratique"
             value={typePratique}
-            onChange={(e) => setTypePratique(e.target.value as TypePratique)}
+            onChange={(e) => appliquerTypePratique(e.target.value as TypePratique)}
           >
             {(Object.keys(LIBELLES_PRATIQUE) as TypePratique[]).map((tp) => (
               <option key={tp} value={tp}>
-                {LIBELLES_PRATIQUE[tp]} (Crr {DEFAUTS_VELO_PAR_PRATIQUE[tp].crr}, CdA{' '}
-                {DEFAUTS_VELO_PAR_PRATIQUE[tp].cda} m²)
+                {LIBELLES_PRATIQUE[tp]} (vélo {DEFAUTS_VELO_PAR_PRATIQUE[tp].mass_kg} kg par défaut)
               </option>
             ))}
           </select>
-          <p className="aide">Voir « Sources et limites » plus bas pour l’origine de ces valeurs par défaut.</p>
         </div>
+
+        <div className="champ champ-double">
+          <div>
+            <label htmlFor="crr">Résistance au roulement (Crr)</label>
+            <select id="crr" value={crrChoisi} onChange={(e) => setCrrChoisi(Number(e.target.value))}>
+              {OPTIONS_CRR.map((o) => (
+                <option key={o.cle} value={o.crr}>
+                  {o.libelle}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label htmlFor="cda">Traînée aérodynamique (CdA)</label>
+            <select id="cda" value={cdaChoisi} onChange={(e) => setCdaChoisi(Number(e.target.value))}>
+              {OPTIONS_CDA.map((o) => (
+                <option key={o.cle} value={o.cda}>
+                  {o.libelle}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+        <p className="aide">
+          Présélectionnés depuis le type de pratique ci-dessus, modifiables indépendamment (ex. un
+          gravel chaussé de pneus lisses route). Voir « Sources et limites » plus bas pour l’origine
+          de ces valeurs.
+        </p>
 
         <fieldset className="champ">
           <legend>Parcours</legend>
