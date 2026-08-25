@@ -504,6 +504,97 @@ const sentryDsn = import.meta.env.PUBLIC_SENTRY_DSN;
         color: var(--color-text);
         padding: 0.5rem 0.6rem;
       }
+
+      /* Menu déroulant personnalisé (SelectPerso) — reprend le style de
+       * input/select pour le bouton fermé, mais le panneau ouvert est du
+       * HTML/CSS classique et peut donc être stylé complètement, contrairement
+       * au popup natif d'un <select>. */
+      .select-perso {
+        position: relative;
+      }
+      .select-perso__bouton {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.5rem;
+        background: var(--color-surface);
+        border: 1px solid rgba(21, 19, 31, 0.12);
+        color: var(--color-text);
+        border-radius: 10px;
+        padding: 0.55rem 0.7rem;
+        font-size: 1rem;
+        font-family: inherit;
+        font-weight: 400;
+        text-align: left;
+        cursor: pointer;
+        box-shadow: none;
+        align-self: stretch;
+        transition: border-color 0.15s ease, box-shadow 0.15s ease;
+      }
+      .select-perso__bouton:hover {
+        background: var(--color-surface);
+        border-color: rgba(91, 79, 224, 0.35);
+        transform: none;
+        box-shadow: none;
+      }
+      .select-perso__bouton:focus-visible,
+      .select-perso__bouton[aria-expanded='true'] {
+        outline: none;
+        border-color: var(--color-accent);
+        box-shadow: 0 0 0 3px rgba(91, 79, 224, 0.16);
+      }
+      .select-perso__bouton[aria-invalid='true'] {
+        border-color: var(--color-erreur);
+      }
+      .select-perso__chevron {
+        width: 18px;
+        height: 18px;
+        flex-shrink: 0;
+        color: var(--color-muted);
+        transition: transform 0.15s ease;
+      }
+      .select-perso__chevron--ouvert {
+        transform: rotate(180deg);
+      }
+      .select-perso__panneau {
+        position: absolute;
+        z-index: 20;
+        top: calc(100% + 0.4rem);
+        left: 0;
+        right: 0;
+        margin: 0;
+        padding: 0.4rem;
+        list-style: none;
+        max-height: 300px;
+        overflow-y: auto;
+        background: var(--color-surface);
+        border: 1px solid rgba(21, 19, 31, 0.08);
+        border-radius: 14px;
+        box-shadow: var(--ombre-carte-survol);
+      }
+      .select-perso__option {
+        padding: 0.6rem 0.75rem;
+        border-radius: 10px;
+        font-size: 0.95rem;
+        color: var(--color-text);
+        cursor: pointer;
+        line-height: 1.35;
+      }
+      .select-perso__option + .select-perso__option {
+        margin-top: 0.15rem;
+      }
+      .select-perso__option--actif {
+        background: var(--color-surface-tint);
+      }
+      .select-perso__option--selectionne {
+        background: var(--color-accent);
+        color: #fff;
+        font-weight: 600;
+      }
+      .select-perso__option--selectionne.select-perso__option--actif {
+        background: var(--color-accent);
+      }
       input[aria-invalid='true'] {
         border-color: var(--color-erreur);
       }

@@ -13,6 +13,7 @@ import {
   type ResultatPacing,
 } from '@/lib/calculs/pacing';
 import { analyserFichierGpx, type ResultatImportGpx } from '@/lib/calculs/gpx';
+import SelectPerso from '@/components/ui/SelectPerso';
 
 const LIBELLES_PRATIQUE: Record<TypePratique, string> = {
   route: 'Route',
@@ -124,21 +125,18 @@ export default function PacingCalculateur() {
       {velos.length > 0 && (
         <div className="champ">
           <label htmlFor="velo-garage-pacing">Type de pratique depuis mon garage</label>
-          <select
+          <SelectPerso
             id="velo-garage-pacing"
             value=""
-            onChange={(e) => {
-              const velo = velos.find((v) => v.id === e.target.value);
+            onChange={(id) => {
+              const velo = velos.find((v) => v.id === id);
               if (velo) appliquerTypePratique(velo.type_pratique);
             }}
-          >
-            <option value="">— Choisir un type de pratique manuellement ci-dessous —</option>
-            {velos.map((v) => (
-              <option key={v.id} value={v.id}>
-                {v.nom} ({LIBELLES_PRATIQUE[v.type_pratique]})
-              </option>
-            ))}
-          </select>
+            options={[
+              { value: '', label: '— Choisir un type de pratique manuellement ci-dessous —' },
+              ...velos.map((v) => ({ value: v.id, label: `${v.nom} (${LIBELLES_PRATIQUE[v.type_pratique]})` })),
+            ]}
+          />
         </div>
       )}
 
@@ -178,39 +176,35 @@ export default function PacingCalculateur() {
 
         <div className="champ">
           <label htmlFor="type-pratique">Type de pratique (masse du vélo, présélection Crr/CdA)</label>
-          <select
+          <SelectPerso
             id="type-pratique"
             value={typePratique}
-            onChange={(e) => appliquerTypePratique(e.target.value as TypePratique)}
-          >
-            {(Object.keys(LIBELLES_PRATIQUE) as TypePratique[]).map((tp) => (
-              <option key={tp} value={tp}>
-                {LIBELLES_PRATIQUE[tp]} (vélo {DEFAUTS_VELO_PAR_PRATIQUE[tp].mass_kg} kg par défaut)
-              </option>
-            ))}
-          </select>
+            onChange={(v) => appliquerTypePratique(v as TypePratique)}
+            options={(Object.keys(LIBELLES_PRATIQUE) as TypePratique[]).map((tp) => ({
+              value: tp,
+              label: `${LIBELLES_PRATIQUE[tp]} (vélo ${DEFAUTS_VELO_PAR_PRATIQUE[tp].mass_kg} kg par défaut)`,
+            }))}
+          />
         </div>
 
         <div className="champ champ-double">
           <div>
             <label htmlFor="crr">Résistance au roulement (Crr)</label>
-            <select id="crr" value={crrChoisi} onChange={(e) => setCrrChoisi(Number(e.target.value))}>
-              {OPTIONS_CRR.map((o) => (
-                <option key={o.cle} value={o.crr}>
-                  {o.libelle}
-                </option>
-              ))}
-            </select>
+            <SelectPerso
+              id="crr"
+              value={String(crrChoisi)}
+              onChange={(v) => setCrrChoisi(Number(v))}
+              options={OPTIONS_CRR.map((o) => ({ value: String(o.crr), label: o.libelle }))}
+            />
           </div>
           <div>
             <label htmlFor="cda">Traînée aérodynamique (CdA)</label>
-            <select id="cda" value={cdaChoisi} onChange={(e) => setCdaChoisi(Number(e.target.value))}>
-              {OPTIONS_CDA.map((o) => (
-                <option key={o.cle} value={o.cda}>
-                  {o.libelle}
-                </option>
-              ))}
-            </select>
+            <SelectPerso
+              id="cda"
+              value={String(cdaChoisi)}
+              onChange={(v) => setCdaChoisi(Number(v))}
+              options={OPTIONS_CDA.map((o) => ({ value: String(o.cda), label: o.libelle }))}
+            />
           </div>
         </div>
         <p className="aide">
