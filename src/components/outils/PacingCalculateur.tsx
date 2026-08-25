@@ -187,25 +187,23 @@ export default function PacingCalculateur() {
           />
         </div>
 
-        <div className="champ champ-double">
-          <div>
-            <label htmlFor="crr">Résistance au roulement (Crr)</label>
-            <SelectPerso
-              id="crr"
-              value={String(crrChoisi)}
-              onChange={(v) => setCrrChoisi(Number(v))}
-              options={OPTIONS_CRR.map((o) => ({ value: String(o.crr), label: o.libelle }))}
-            />
-          </div>
-          <div>
-            <label htmlFor="cda">Traînée aérodynamique (CdA)</label>
-            <SelectPerso
-              id="cda"
-              value={String(cdaChoisi)}
-              onChange={(v) => setCdaChoisi(Number(v))}
-              options={OPTIONS_CDA.map((o) => ({ value: String(o.cda), label: o.libelle }))}
-            />
-          </div>
+        <div className="champ">
+          <label htmlFor="crr">Résistance au roulement (Crr)</label>
+          <SelectPerso
+            id="crr"
+            value={String(crrChoisi)}
+            onChange={(v) => setCrrChoisi(Number(v))}
+            options={OPTIONS_CRR.map((o) => ({ value: String(o.crr), label: o.libelle }))}
+          />
+        </div>
+        <div className="champ">
+          <label htmlFor="cda">Traînée aérodynamique (CdA)</label>
+          <SelectPerso
+            id="cda"
+            value={String(cdaChoisi)}
+            onChange={(v) => setCdaChoisi(Number(v))}
+            options={OPTIONS_CDA.map((o) => ({ value: String(o.cda), label: o.libelle }))}
+          />
         </div>
         <p className="aide">
           Présélectionnés depuis le type de pratique ci-dessus, modifiables indépendamment (ex. un
