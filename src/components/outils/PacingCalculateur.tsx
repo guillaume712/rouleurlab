@@ -7,8 +7,10 @@ import {
   calculerPlanPacing,
   validerEntreesPacing,
   type EntreesPacing,
+  type EntreeSegmentPacing,
   type ResultatPacing,
 } from '@/lib/calculs/pacing';
+import { analyserFichierGpx, type ResultatImportGpx } from '@/lib/calculs/gpx';
 
 const LIBELLES_PRATIQUE: Record<TypePratique, string> = {
   route: 'Route',
@@ -16,10 +18,6 @@ const LIBELLES_PRATIQUE: Record<TypePratique, string> = {
   vtt: 'VTT',
   ville: 'Ville',
 };
-
-function segmentsParDefaut() {
-  return [{ distance_km: 10, pente_pourcent: 0 }];
-}
 
 function formaterDuree(secondes: number): string {
   const h = Math.floor(secondes / 3600);
@@ -40,7 +38,10 @@ export default function PacingCalculateur() {
   const [temperatureC, setTemperatureC] = useState(20);
   const [altitudeM, setAltitudeM] = useState(0);
   const [ventFaceMs, setVentFaceMs] = useState(0);
-  const [segments, setSegments] = useState(segmentsParDefaut());
+  const [segments, setSegments] = useState<EntreeSegmentPacing[]>([]);
+  const [infoTrace, setInfoTrace] = useState<ResultatImportGpx | null>(null);
+  const [nomFichier, setNomFichier] = useState<string | null>(null);
+  const [erreurFichier, setErreurFichier] = useState<string | null>(null);
   const [erreurs, setErreurs] = useState<Partial<Record<string, string>>>({});
   const [resultat, setResultat] = useState<ResultatPacing | null>(null);
 
@@ -51,16 +52,33 @@ export default function PacingCalculateur() {
     setVelos(getVelos());
   }, []);
 
-  function ajouterSegment() {
-    setSegments([...segments, { distance_km: 5, pente_pourcent: 0 }]);
-  }
+  function gererFichierGpx(e: React.ChangeEvent<HTMLInputElement>) {
+    const fichier = e.target.files?.[0];
+    if (!fichier) return;
+    setNomFichier(fichier.name);
+    setResultat(null);
 
-  function supprimerSegment(index: number) {
-    setSegments(segments.filter((_, i) => i !== index));
-  }
-
-  function modifierSegment(index: number, champ: 'distance_km' | 'pente_pourcent', valeur: number) {
-    setSegments(segments.map((s, i) => (i === index ? { ...s, [champ]: valeur } : s)));
+    const lecteur = new FileReader();
+    lecteur.onload = () => {
+      try {
+        const contenu = String(lecteur.result ?? '');
+        const analyse = analyserFichierGpx(contenu);
+        setSegments(analyse.segments);
+        setInfoTrace(analyse);
+        setErreurFichier(null);
+        setErreurs((prev) => ({ ...prev, segments: undefined }));
+      } catch (err) {
+        setSegments([]);
+        setInfoTrace(null);
+        setErreurFichier(err instanceof Error ? err.message : 'Fichier GPX illisible.');
+      }
+    };
+    lecteur.onerror = () => {
+      setSegments([]);
+      setInfoTrace(null);
+      setErreurFichier('Impossible de lire ce fichier.');
+    };
+    lecteur.readAsText(fichier);
   }
 
   function gererSoumission(e: React.SyntheticEvent<HTMLFormElement>) {
@@ -162,44 +180,34 @@ export default function PacingCalculateur() {
         </div>
 
         <fieldset className="champ">
-          <legend>Tronçons du parcours</legend>
-          {segments.map((seg, i) => (
-            <div key={i} className="champ-double" style={{ display: 'flex', alignItems: 'flex-end' }}>
-              <div>
-                <label htmlFor={`segment-distance-${i}`}>Distance (km)</label>
-                <input
-                  id={`segment-distance-${i}`}
-                  type="number"
-                  step="0.1"
-                  value={seg.distance_km}
-                  onChange={(e) => modifierSegment(i, 'distance_km', Number(e.target.value))}
-                />
-              </div>
-              <div>
-                <label htmlFor={`segment-pente-${i}`}>Pente moyenne (%)</label>
-                <input
-                  id={`segment-pente-${i}`}
-                  type="number"
-                  step="0.5"
-                  value={seg.pente_pourcent}
-                  onChange={(e) => modifierSegment(i, 'pente_pourcent', Number(e.target.value))}
-                />
-              </div>
-              {segments.length > 1 && (
-                <button type="button" onClick={() => supprimerSegment(i)} aria-label={`Supprimer le tronçon ${i + 1}`}>
-                  Retirer
-                </button>
-              )}
-            </div>
-          ))}
-          {erreurs.segments && (
+          <legend>Parcours</legend>
+          <label htmlFor="fichier-gpx">Fichier GPX de votre parcours</label>
+          <input id="fichier-gpx" type="file" accept=".gpx,application/gpx+xml" onChange={gererFichierGpx} />
+          <p className="aide">
+            Export GPX d'un parcours (Strava, Komoot, RideWithGPS, Garmin Connect…) — pas un fichier
+            d'activité enregistrée (.fit) ni un fichier de plusieurs sorties.
+          </p>
+
+          {erreurFichier && (
+            <p className="erreur" role="alert">
+              {erreurFichier}
+            </p>
+          )}
+          {erreurs.segments && !erreurFichier && (
             <p className="erreur" role="alert">
               {erreurs.segments}
             </p>
           )}
-          <button type="button" onClick={ajouterSegment}>
-            Ajouter un tronçon
-          </button>
+
+          {infoTrace && !erreurFichier && (
+            <p className="aide">
+              <strong>{nomFichier}</strong> — {infoTrace.distance_totale_km} km, D+ {infoTrace.denivele_positif_m} m
+              / D- {infoTrace.denivele_negatif_m} m, découpé en {segments.length} tronçons d'environ{' '}
+              {infoTrace.longueur_segment_m} m pour le calcul.
+              {!infoTrace.altitude_disponible &&
+                " Ce fichier ne contient pas de données d'altitude : la pente est supposée nulle sur tout le parcours."}
+            </p>
+          )}
         </fieldset>
 
         <details className="champ">

@@ -6,7 +6,7 @@ import PacingCalculateur from '@/components/outils/PacingCalculateur';
 
 <OutilLayout
   title="Plan de puissance (pacing) — calculateur | RouleurLab"
-  description="Calcule un plan de puissance segment par segment à partir de votre FTP et du profil du parcours, avec suivi de la réserve anaérobie (W'balance)."
+  description="Importez le GPX de votre parcours : calcul d'un plan de puissance tronçon par tronçon à partir de votre FTP et du profil altimétrique, avec suivi de la réserve anaérobie (W'balance)."
   filAriane={[{ label: 'Accueil', href: '/' }, { label: 'Plan de puissance' }]}
 >
   <div class="entete-outil">
@@ -14,10 +14,10 @@ import PacingCalculateur from '@/components/outils/PacingCalculateur';
     <h1>Plan de puissance (pacing)</h1>
   </div>
   <p>
-    Découpez votre parcours en tronçons (distance et pente moyenne), et l'outil calcule une
-    puissance cible par tronçon : une puissance constante de base, modulée à la hausse dans les
-    montées et à la baisse dans le plat ou en descente — en vérifiant que le plan reste tenable au
-    regard de votre FTP et de votre réserve anaérobie (W').
+    Importez le fichier GPX de votre parcours : l'outil en tire un profil de pente tronçon par
+    tronçon, puis calcule une puissance cible pour chacun — une puissance constante de base,
+    modulée à la hausse dans les montées et à la baisse dans le plat ou en descente — en vérifiant
+    que le plan reste tenable au regard de votre FTP et de votre réserve anaérobie (W').
   </p>
 
   <p class="avertissement">
@@ -59,9 +59,19 @@ import PacingCalculateur from '@/components/outils/PacingCalculateur';
       efforts très longs) et les solveurs d'optimisation avancés (programmation dynamique,
       algorithme génétique, recuit simulé, Monte Carlo) du moteur source ne sont pas portés dans
       cette version — le plan proposé est une heuristique raisonnable, pas un optimum mathématique.
-      Le vent n'est modélisé que comme une valeur unique "de face" sur tout le parcours (pas de
-      tracé GPX avec cap variable). Le W' par défaut (20 000 J) est une moyenne plausible, pas votre
-      valeur individuelle — elle ne se mesure fiablement qu'avec un test de puissance critique.
+      Le vent n'est modélisé que comme une valeur unique "de face" sur tout le parcours (le cap réel
+      du tracé GPX n'est pas exploité pour orienter le vent tronçon par tronçon). Le W' par défaut
+      (20 000 J) est une moyenne plausible, pas votre valeur individuelle — elle ne se mesure
+      fiablement qu'avec un test de puissance critique.
+    </p>
+    <p>
+      Import GPX : le fichier est découpé en tronçons de longueur fixe (jusqu'à 300 tronçons pour
+      les parcours longs, plus longs au-delà) ; la pente de chaque tronçon est calculée à partir de
+      l'altitude du fichier, interpolée entre les points de trace — pas une mesure de terrain, et
+      sensible au bruit d'altitude selon la source (GPS ou baromètre de l'appareil ayant servi à
+      enregistrer ou générer le tracé). Un fichier GPX sans données d'altitude produit un plan à
+      pente nulle sur tout le parcours, signalé comme tel après l'import. Seul le format GPX est
+      accepté (pas les fichiers d'activité .fit ou .tcx).
     </p>
   </Fragment>
 </OutilLayout>

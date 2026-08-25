@@ -310,7 +310,7 @@ export function validerEntreesPacing(entrees: Partial<EntreesPacing>): Partial<R
     erreurs.ftp_w = `Le FTP doit être compris entre ${PLAGES.ftp_w.min} et ${PLAGES.ftp_w.max} W — indispensable pour ce calcul.`;
   }
   if (!entrees.segments || entrees.segments.length === 0) {
-    erreurs.segments = 'Ajoutez au moins un tronçon.';
+    erreurs.segments = 'Importez le fichier GPX de votre parcours.';
   } else {
     const segmentInvalide = entrees.segments.some(
       (s) =>
