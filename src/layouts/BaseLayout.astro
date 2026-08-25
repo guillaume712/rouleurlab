@@ -490,6 +490,20 @@ const sentryDsn = import.meta.env.PUBLIC_SENTRY_DSN;
         border-color: var(--color-accent);
         box-shadow: 0 0 0 3px rgba(91, 79, 224, 0.16);
       }
+      /* Menu déroulant natif : le popup d'options reste dessiné par le
+       * système sur la plupart des navigateurs (impossible à reproduire
+       * fidèlement en CSS sans reconstruire un menu personnalisé), mais
+       * accent-color et le style des <option> sont respectés par les
+       * navigateurs Chromium et Firefox et rapprochent la liste ouverte du
+       * reste du site plutôt que de laisser le bleu système par défaut. */
+      select {
+        accent-color: var(--color-accent);
+      }
+      select option {
+        background-color: var(--color-surface);
+        color: var(--color-text);
+        padding: 0.5rem 0.6rem;
+      }
       input[aria-invalid='true'] {
         border-color: var(--color-erreur);
       }
