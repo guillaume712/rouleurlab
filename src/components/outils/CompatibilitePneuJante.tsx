@@ -8,7 +8,6 @@ import {
   type ResultatCompatibilitePneuJante,
   type TypeJante,
 } from '@/lib/calculs/compatibilitePneuJante';
-import SchemaJante from './SchemaJante';
 
 const VALEURS_PAR_DEFAUT: EntreesCompatibilitePneuJante = {
   largeur_jante_interne_mm: 21,
@@ -127,8 +126,6 @@ export default function CompatibilitePneuJante() {
             )}
           </div>
         </div>
-
-        <SchemaJante typeJante={entrees.type_jante} />
 
         <div className="champ">
           <label htmlFor="type-jante">Type de jante</label>
