@@ -493,6 +493,52 @@ const sentryDsn = import.meta.env.PUBLIC_SENTRY_DSN;
       input[aria-invalid='true'] {
         border-color: var(--color-erreur);
       }
+      input[type='file'] {
+        background: transparent;
+        border: none;
+        padding: 0.2rem 0;
+        font-size: 0.88rem;
+        color: var(--color-muted);
+      }
+      input[type='file']::file-selector-button {
+        background: var(--color-ink);
+        color: #fff;
+        border: none;
+        border-radius: 999px;
+        padding: 0.55rem 1.15rem;
+        font-weight: 700;
+        font-size: 0.85rem;
+        font-family: inherit;
+        cursor: pointer;
+        margin-right: 0.85rem;
+        box-shadow: 0 8px 18px -10px rgba(21, 19, 31, 0.4);
+        transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+      }
+      input[type='file']::file-selector-button:hover {
+        background: #26222f;
+        transform: translateY(-1px);
+      }
+      input[type='file']:focus-visible {
+        outline: 2px solid var(--color-accent);
+        outline-offset: 3px;
+        border-radius: 999px;
+      }
+      fieldset {
+        margin: 0;
+        border: 1px solid rgba(21, 19, 31, 0.1);
+        border-radius: 16px;
+        padding: 1.15rem 1.25rem 1.3rem;
+        background: var(--color-surface);
+        box-shadow: var(--ombre-carte);
+      }
+      fieldset > legend {
+        padding: 0 0.5rem;
+        margin-left: -0.5rem;
+        font-family: var(--font-titre);
+        font-weight: 700;
+        font-size: 0.95rem;
+        color: var(--color-text);
+      }
       button {
         background: var(--color-ink);
         color: #fff;
