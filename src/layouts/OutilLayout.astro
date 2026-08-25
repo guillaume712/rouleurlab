@@ -73,22 +73,37 @@ const jsonLdFilAriane = {
       align-items: center;
       gap: 0.4rem;
     }
+    .fil-ariane a {
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+    .fil-ariane a:hover {
+      color: var(--color-accent);
+    }
     .fil-ariane .separateur {
       color: var(--color-muted);
+      opacity: 0.6;
     }
     .fil-ariane [aria-current='page'] {
       color: var(--color-text);
+      font-weight: 600;
     }
     .sources-limites {
       margin-top: 2.5rem;
-      padding: 1rem 1.25rem;
-      border: 1px solid #2e333a;
-      border-radius: 8px;
+      padding: 1.1rem 1.25rem;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
       background: #161a1f;
+      box-shadow: var(--ombre-carte);
     }
     .sources-limites h2 {
-      font-size: 1rem;
-      margin: 0 0 0.5rem;
+      font-family: var(--font-titre);
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--color-muted);
+      margin: 0 0 0.6rem;
     }
     .sources-limites :global(p) {
       color: var(--color-muted);

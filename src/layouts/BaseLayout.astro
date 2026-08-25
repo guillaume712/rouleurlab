@@ -34,6 +34,12 @@ const sentryDsn = import.meta.env.PUBLIC_SENTRY_DSN;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="canonical" href={canonicalURL} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <title>{title}</title>
     <meta name="description" content={description} />
 
@@ -110,17 +116,32 @@ const sentryDsn = import.meta.env.PUBLIC_SENTRY_DSN;
         --color-bg: #0f1216;
         --color-text: #e8ebee;
         --color-accent: #ffb020;
+        --color-accent-2: #ffcc66;
         --color-muted: #9aa4af;
-        font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+        --color-succes: #5ac26a;
+        --color-erreur: #e05555;
+        --font-body: 'Inter', system-ui, -apple-system, "Segoe UI", sans-serif;
+        --font-titre: 'Sora', 'Inter', system-ui, sans-serif;
+        --ombre-carte: 0 1px 2px rgba(0, 0, 0, 0.35), 0 10px 28px -14px rgba(0, 0, 0, 0.6);
+        --ombre-carte-survol: 0 2px 4px rgba(0, 0, 0, 0.4), 0 18px 36px -14px rgba(255, 176, 32, 0.18);
+        font-family: var(--font-body);
       }
       * {
         box-sizing: border-box;
       }
       body {
         margin: 0;
-        background: var(--color-bg);
+        background:
+          radial-gradient(1100px 560px at 12% -8%, rgba(255, 176, 32, 0.09), transparent 60%),
+          radial-gradient(900px 480px at 105% 0%, rgba(255, 176, 32, 0.05), transparent 55%),
+          var(--color-bg);
+        background-attachment: fixed;
         color: var(--color-text);
         line-height: 1.5;
+      }
+      h1, h2, h3 {
+        font-family: var(--font-titre);
+        letter-spacing: -0.01em;
       }
       main {
         max-width: 960px;
@@ -128,8 +149,14 @@ const sentryDsn = import.meta.env.PUBLIC_SENTRY_DSN;
         padding: 1.5rem;
       }
       .site-header {
-        border-bottom: 1px solid #24282e;
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.07);
         padding: 1rem 1.5rem;
+        background: rgba(15, 18, 22, 0.82);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
       }
       nav {
         display: flex;
@@ -140,15 +167,18 @@ const sentryDsn = import.meta.env.PUBLIC_SENTRY_DSN;
         text-decoration: none;
         font-weight: 600;
         font-size: 0.95rem;
+        transition: color 0.15s ease;
       }
       nav a:hover {
         color: var(--color-accent);
       }
       .logo {
+        font-family: var(--font-titre);
         color: var(--color-accent);
         font-weight: 700;
         text-decoration: none;
-        font-size: 1.25rem;
+        font-size: 1.3rem;
+        letter-spacing: -0.01em;
       }
       .site-footer {
         text-align: center;
@@ -211,15 +241,17 @@ const sentryDsn = import.meta.env.PUBLIC_SENTRY_DSN;
         gap: 0.6rem;
         padding: 1.25rem;
         background: #161a1f;
-        border: 1px solid #2e333a;
-        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 12px;
         text-decoration: none;
         color: var(--color-text);
-        transition: border-color 0.15s ease, transform 0.15s ease;
+        box-shadow: var(--ombre-carte);
+        transition: border-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
       }
       .carte-outil:hover {
         border-color: var(--color-accent);
-        transform: translateY(-2px);
+        transform: translateY(-3px);
+        box-shadow: var(--ombre-carte-survol);
       }
       .carte-outil h3 {
         margin: 0;
@@ -238,9 +270,10 @@ const sentryDsn = import.meta.env.PUBLIC_SENTRY_DSN;
         justify-content: center;
         width: 2.75rem;
         height: 2.75rem;
-        border-radius: 8px;
-        background: #201a0e;
+        border-radius: 9px;
+        background: linear-gradient(160deg, #2a220f, #201a0e);
         color: var(--color-accent);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
       }
       .carte-outil-icone svg {
         width: 1.7rem;
@@ -285,8 +318,9 @@ const sentryDsn = import.meta.env.PUBLIC_SENTRY_DSN;
         gap: 1.25rem;
         padding: 1.25rem 1.5rem;
         background: #161a1f;
-        border: 1px solid #2e333a;
-        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 12px;
+        box-shadow: var(--ombre-carte);
       }
       .bandeau-profil h2 {
         margin: 0 0 0.4rem;
@@ -310,16 +344,18 @@ const sentryDsn = import.meta.env.PUBLIC_SENTRY_DSN;
         display: inline-block;
         text-decoration: none;
         color: var(--color-text);
-        border: 1px solid #2e333a;
-        border-radius: 6px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 8px;
         padding: 0.55rem 1rem;
         font-weight: 600;
         font-size: 0.9rem;
         white-space: nowrap;
+        transition: border-color 0.15s ease, color 0.15s ease, transform 0.15s ease;
       }
       .bouton-secondaire:hover {
         border-color: var(--color-accent);
         color: var(--color-accent);
+        transform: translateY(-1px);
       }
       .section-contenu {
         margin-top: 2.5rem;
@@ -338,15 +374,17 @@ const sentryDsn = import.meta.env.PUBLIC_SENTRY_DSN;
         gap: 0.45rem;
         padding: 1.25rem;
         background: #161a1f;
-        border: 1px solid #2e333a;
-        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 12px;
         text-decoration: none;
         color: var(--color-text);
-        transition: border-color 0.15s ease, transform 0.15s ease;
+        box-shadow: var(--ombre-carte);
+        transition: border-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
       }
       .carte-article:hover {
         border-color: var(--color-accent);
-        transform: translateY(-2px);
+        transform: translateY(-3px);
+        box-shadow: var(--ombre-carte-survol);
       }
       .carte-article h3 {
         margin: 0;
@@ -394,30 +432,53 @@ const sentryDsn = import.meta.env.PUBLIC_SENTRY_DSN;
       input,
       select {
         background: #1a1e24;
-        border: 1px solid #2e333a;
+        border: 1px solid rgba(255, 255, 255, 0.1);
         color: var(--color-text);
-        border-radius: 6px;
-        padding: 0.5rem 0.6rem;
+        border-radius: 8px;
+        padding: 0.55rem 0.7rem;
         font-size: 1rem;
+        font-family: inherit;
+        transition: border-color 0.15s ease, box-shadow 0.15s ease;
+      }
+      input:focus,
+      select:focus {
+        outline: none;
+        border-color: var(--color-accent);
+        box-shadow: 0 0 0 3px rgba(255, 176, 32, 0.16);
       }
       input[aria-invalid='true'] {
-        border-color: #e05555;
+        border-color: var(--color-erreur);
       }
       button {
-        background: var(--color-accent);
+        background: linear-gradient(135deg, var(--color-accent-2), var(--color-accent));
         color: #14171b;
         border: none;
-        border-radius: 6px;
-        padding: 0.6rem 1rem;
+        border-radius: 8px;
+        padding: 0.6rem 1.1rem;
         font-weight: 700;
         cursor: pointer;
         align-self: flex-start;
+        box-shadow: 0 4px 16px -6px rgba(255, 176, 32, 0.55);
+        transition: transform 0.15s ease, box-shadow 0.15s ease;
+      }
+      button:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 8px 20px -6px rgba(255, 176, 32, 0.65);
+      }
+      button:active {
+        transform: translateY(0);
       }
       button[type='button'] {
         background: transparent;
         color: var(--color-text);
-        border: 1px solid #2e333a;
+        border: 1px solid rgba(255, 255, 255, 0.12);
         margin-left: 0.5rem;
+        box-shadow: none;
+      }
+      button[type='button']:hover {
+        border-color: var(--color-accent);
+        color: var(--color-accent);
+        box-shadow: none;
       }
       .aide {
         color: var(--color-muted);
@@ -425,12 +486,12 @@ const sentryDsn = import.meta.env.PUBLIC_SENTRY_DSN;
         margin: 0;
       }
       .erreur {
-        color: #e05555;
+        color: var(--color-erreur);
         font-size: 0.8rem;
         margin: 0;
       }
       .confirmation {
-        color: #5ac26a;
+        color: var(--color-succes);
         font-weight: 600;
       }
       .liste-velos {
@@ -447,7 +508,8 @@ const sentryDsn = import.meta.env.PUBLIC_SENTRY_DSN;
         gap: 0.75rem;
         padding: 0.6rem 0.75rem;
         background: #1a1e24;
-        border-radius: 6px;
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        border-radius: 8px;
       }
       .liste-velos li span {
         flex: 1;
@@ -464,12 +526,14 @@ const sentryDsn = import.meta.env.PUBLIC_SENTRY_DSN;
         margin: 0;
       }
       .avertissement {
-        border: 1px solid #7a5a1a;
-        background: #201a0e;
-        border-radius: 8px;
+        border: 1px solid rgba(255, 176, 32, 0.28);
+        border-left: 3px solid var(--color-accent);
+        background: linear-gradient(135deg, rgba(255, 176, 32, 0.09), rgba(32, 26, 14, 0.5));
+        border-radius: 10px;
         padding: 0.9rem 1.1rem;
         margin: 1.25rem 0;
         font-size: 0.9rem;
+        box-shadow: var(--ombre-carte);
       }
       .avertissement strong {
         color: var(--color-accent);
@@ -496,8 +560,8 @@ const sentryDsn = import.meta.env.PUBLIC_SENTRY_DSN;
       table.table-reference th,
       table.table-reference td {
         text-align: left;
-        padding: 0.55rem 0.7rem;
-        border-bottom: 1px solid #24282e;
+        padding: 0.6rem 0.75rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
         vertical-align: top;
       }
       table.table-reference th {
@@ -506,6 +570,13 @@ const sentryDsn = import.meta.env.PUBLIC_SENTRY_DSN;
         font-size: 0.8rem;
         text-transform: uppercase;
         letter-spacing: 0.02em;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      }
+      table.table-reference tbody tr {
+        transition: background-color 0.1s ease;
+      }
+      table.table-reference tbody tr:hover {
+        background-color: rgba(255, 255, 255, 0.035);
       }
       table.table-reference td.valeur {
         white-space: nowrap;
@@ -525,8 +596,9 @@ const sentryDsn = import.meta.env.PUBLIC_SENTRY_DSN;
         margin: 1rem 0 1.25rem;
         padding: 0.75rem 1rem 1rem;
         background: #161a1f;
-        border: 1px solid #2e333a;
-        border-radius: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 10px;
+        box-shadow: var(--ombre-carte);
         text-align: center;
       }
       .schema-jante svg {
@@ -610,9 +682,11 @@ const sentryDsn = import.meta.env.PUBLIC_SENTRY_DSN;
       .resultat {
         margin-top: 1.5rem;
         padding: 1rem 1.25rem;
-        border: 1px solid #2e333a;
-        border-radius: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-left: 4px solid var(--color-muted);
+        border-radius: 10px;
         background: #161a1f;
+        box-shadow: var(--ombre-carte);
       }
       .resultat-principal {
         font-size: 1.5rem;
@@ -622,6 +696,27 @@ const sentryDsn = import.meta.env.PUBLIC_SENTRY_DSN;
       }
       .resultat .aide {
         margin-top: 0.4rem;
+      }
+      .resultat--recommande {
+        border-left-color: var(--color-succes);
+      }
+      .resultat--recommande .resultat-principal {
+        color: var(--color-succes);
+      }
+      .resultat--tolere {
+        border-left-color: var(--color-accent);
+      }
+      .resultat--non-recommande {
+        border-left-color: var(--color-erreur);
+      }
+      .resultat--non-recommande .resultat-principal {
+        color: var(--color-erreur);
+      }
+      .resultat--hors-couverture {
+        border-left-color: var(--color-muted);
+      }
+      .resultat--hors-couverture .resultat-principal {
+        color: var(--color-muted);
       }
     </style>
   </body>

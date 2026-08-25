@@ -23,6 +23,13 @@ const LIBELLES_VERDICT: Record<ResultatCompatibilitePneuJante['verdict'], string
   hors_couverture: 'Hors de la couverture de cet outil',
 };
 
+const CLASSES_VERDICT: Record<ResultatCompatibilitePneuJante['verdict'], string> = {
+  recommande: 'resultat--recommande',
+  tolere: 'resultat--tolere',
+  non_recommande: 'resultat--non-recommande',
+  hors_couverture: 'resultat--hors-couverture',
+};
+
 export default function CompatibilitePneuJante() {
   const [velos, setVelos] = useState<Velo[]>([]);
   const [veloSelectionneId, setVeloSelectionneId] = useState('');
@@ -139,7 +146,7 @@ export default function CompatibilitePneuJante() {
       </form>
 
       {resultat && (
-        <div className="resultat" role="status">
+        <div className={`resultat ${CLASSES_VERDICT[resultat.verdict]}`} role="status">
           <p className="resultat-principal">{LIBELLES_VERDICT[resultat.verdict]}</p>
 
           {resultat.verdict === 'hors_couverture' && (
